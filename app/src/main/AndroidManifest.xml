@@ -13,7 +13,19 @@
         android:theme="@style/Theme.SparTube"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".short_page"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.MyPageFragment"
+            android:exported="false" />
+        <activity
+            android:name=".detail.DetailPageFragment"
+            android:exported="false" />
+        <activity
+            android:name=".main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
