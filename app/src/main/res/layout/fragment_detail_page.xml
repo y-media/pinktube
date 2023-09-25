@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="#909090"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,15 +39,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_detail_pic">
 
         <ImageView
             android:id="@+id/iv_detail_heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_heart_filled"
             app:layout_constraintBottom_toBottomOf="@+id/iv_detail_comment"
@@ -56,9 +56,9 @@
 
         <ImageView
             android:id="@+id/iv_detail_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
             android:src="@drawable/ic_my_page"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,25 +78,25 @@
 
         <ImageView
             android:id="@+id/iv_detail_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_comment"
-            app:tint="#FBA1B7"
             app:layout_constraintBottom_toBottomOf="@+id/iv_detail_share"
             app:layout_constraintEnd_toStartOf="@+id/iv_detail_share"
-            app:layout_constraintTop_toTopOf="@+id/iv_detail_share" />
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_share"
+            app:tint="#FBA1B7" />
 
         <ImageView
             android:id="@+id/iv_detail_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_share_btn"
-            app:tint="#FBA1B7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FBA1B7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -106,9 +106,10 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:ellipsize="end"
-        android:maxLines="1"
         android:fontFamily="@font/font_omu"
-        android:text="TextView"
+        android:maxLines="1"
+        android:text="This is Title"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
