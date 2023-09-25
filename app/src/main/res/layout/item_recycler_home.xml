@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_thumbnail_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintDimensionRatio="4:3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFF0F5"
+            android:padding="20dp"
+            android:src="@drawable/ic_loading_img"
+            android:contentDescription="로딩 화면" />
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/item_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_thumbnail_view"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="video title"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/item_count_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_title_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="조회수 2.1민회"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/item_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintTop_toTopOf="@id/item_count_text_view"
+        app:layout_constraintStart_toEndOf="@id/item_count_text_view"
+        tools:text="1년전"
+        android:textSize="14sp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
