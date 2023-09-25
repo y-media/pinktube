@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.spartube.home.HomeFragment
 import com.example.spartube.R
+import com.example.spartube.mypage.MyPageFragment
 import com.example.spartube.search.SearchFragment
 
 class MainViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
@@ -27,7 +28,7 @@ class MainViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAd
         )
         fragments.add(
             MainTab(
-                HomeFragment.newInstance(),
+                MyPageFragment.newInstance(),
             R.string.my_page,
             R.drawable.ic_my_page
             )
