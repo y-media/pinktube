@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    >
+    android:layout_margin="12dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_thumbnail_view"
@@ -20,40 +19,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FFF0F5"
+            android:contentDescription="로딩 화면"
             android:padding="20dp"
-            android:src="@drawable/ic_loading_img"
-            android:contentDescription="로딩 화면" />
+            android:src="@drawable/ic_loading_img" />
 
     </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/item_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/item_thumbnail_view"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="video title"
+        android:fontFamily="@font/font_omu"
         android:textSize="16sp"
         android:textStyle="bold"
-        />
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_thumbnail_view"
+        tools:text="video title" />
+
     <TextView
         android:id="@+id/item_count_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/item_title_text_view"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="조회수 2.1민회"
+        android:fontFamily="@font/font_omu"
         android:textSize="14sp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_title_text_view"
+        tools:text="조회수 2.1민회" />
 
     <TextView
         android:id="@+id/item_date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        app:layout_constraintTop_toTopOf="@id/item_count_text_view"
-        app:layout_constraintStart_toEndOf="@id/item_count_text_view"
-        tools:text="1년전"
+        android:fontFamily="@font/font_omu"
         android:textSize="14sp"
-        />
+        app:layout_constraintStart_toEndOf="@id/item_count_text_view"
+        app:layout_constraintTop_toTopOf="@id/item_count_text_view"
+        tools:text="1년전" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
