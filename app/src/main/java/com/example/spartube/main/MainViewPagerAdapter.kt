@@ -31,7 +31,7 @@ class MainViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAd
             MainTab(
                 MyPageFragment.newInstance(),
             R.string.my_page,
-            R.drawable.ic_my_page
+            R.drawable.ic_profile
             )
         )
         fragments.add(
