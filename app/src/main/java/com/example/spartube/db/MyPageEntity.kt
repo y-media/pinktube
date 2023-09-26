@@ -11,5 +11,7 @@ data class MyPageEntity (
     @ColumnInfo
     val thumbnailUrl: String?,
     @ColumnInfo
-    val title: String?
+    val title: String?,
+    @ColumnInfo
+    val description: String?
 )

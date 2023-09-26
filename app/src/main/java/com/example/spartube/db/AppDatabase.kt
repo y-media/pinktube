@@ -11,14 +11,13 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private var INSTANCE: AppDatabase? = null
-    }
-
-    fun getDatabase(context: Context): AppDatabase {
-        if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(
-                context, AppDatabase::class.java, "my_page_db"
-            ).build()
+        fun getDatabase(context: Context): AppDatabase {
+            if (INSTANCE == null) {
+                INSTANCE = Room.databaseBuilder(
+                    context, AppDatabase::class.java, "my_page_db"
+                ).build()
+            }
+            return INSTANCE as AppDatabase
         }
-        return INSTANCE as AppDatabase
     }
 }
