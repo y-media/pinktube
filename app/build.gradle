@@ -4,6 +4,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+
 android {
     namespace 'com.example.spartube'
     compileSdk 33
@@ -14,6 +18,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "YOUTUBE_API_KEY", properties['API_KEY']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +49,7 @@ dependencies {
     def coroutines_version = "1.6.4"
     def glide_version = "4.13.2"
     def retrofit_version = "2.9.0"
+    def room_version = "2.5.0"
 
     implementation("com.airbnb.android:lottie:6.1.0")
     implementation 'androidx.core:core-ktx:1.8.0'
