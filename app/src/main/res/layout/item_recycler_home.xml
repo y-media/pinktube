@@ -8,14 +8,15 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_thumbnail_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:layout_constraintDimensionRatio="4:3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/item_thumbnail_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FFF0F5"

@@ -42,6 +42,7 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="20sp"
+        android:background="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/main_popular_text"
         app:layout_constraintTop_toBottomOf="@id/main_popular_recycler_view"
