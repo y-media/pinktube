@@ -6,4 +6,7 @@
     <string name="shorts">short</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="most_popular_home">Most Popular</string>
+    <string name="choose_category_home">choose category</string>
+    <string name="channel_of_category_home">Channel Of Category</string>
 </resources>

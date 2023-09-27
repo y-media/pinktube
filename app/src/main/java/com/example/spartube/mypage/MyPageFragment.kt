@@ -9,7 +9,7 @@ import com.example.spartube.R
 
 
 class MyPageFragment : Fragment() {
-
+    private val binding by lazy {  }
     companion object{
         fun newInstance() = MyPageFragment()
     }
@@ -23,3 +23,5 @@ class MyPageFragment : Fragment() {
     }
 
 }
+
+
