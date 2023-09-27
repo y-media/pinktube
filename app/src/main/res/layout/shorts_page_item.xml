@@ -51,12 +51,16 @@
         tools:text="123asdasd" />
 
     <TextView
-        android:id="@+id/shorts_id_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/shorts_channel_id_text_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@id/shorts_page_iv_like"
         app:layout_constraintBottom_toBottomOf="@id/shorts_page_iv_profile"
         app:layout_constraintStart_toEndOf="@id/shorts_page_iv_profile"
         app:layout_constraintTop_toTopOf="@id/shorts_page_iv_profile"
