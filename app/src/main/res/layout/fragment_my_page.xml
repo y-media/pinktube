@@ -6,44 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".mypage.MyPageFragment">
 
-    <ImageView
-        android:id="@+id/mypage_ImageView_background"
-        android:layout_width="439dp"
-        android:layout_height="233dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/background"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/mypage_ImageView_ic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="100dp"
-        android:layout_marginBottom="65dp"
-        android:background="@drawable/ic_shape"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="413dp"
+            android:layout_height="232dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/anime"
+            app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-1dp" />
+        <ImageView
+            android:id="@+id/mypage_ImageView_ic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="100dp"
+            android:background="@drawable/ic_shape"
+            android:scaleType="fitXY"
+            android:src="@drawable/lupi"
+            app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-        android:scaleType="centerCrop"
-        android:src="@drawable/bonobono"
-        app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mypage_ImageView_background"
-        tools:ignore="MissingConstraints"></ImageView>
 
-    <TextView
-        android:id="@+id/mypage_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_ImageView_ic" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mypage_recyclerView"
@@ -53,6 +42,55 @@
         android:scrollbars="vertical">
     </androidx.recyclerview.widget.RecyclerView>
 
+        <ImageView
+            android:id="@+id/anime"
+            android:layout_width="414dp"
+            android:layout_height="295dp"
+            android:layout_marginBottom="176dp"
+            android:src="@drawable/anime"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/nontextView_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            android:gravity="center"
+            android:text="映像が空いています。"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime" />
+
+        <TextView
+        android:id="@+id/nontextView_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영상이 비어있습니다."
+        android:textColor="#4D000000"
+            android:fontFamily="@font/font_omu"
+        app:layout_constraintEnd_toEndOf="@+id/nontextView_1"
+        app:layout_constraintStart_toStartOf="@+id/nontextView_1"
+        app:layout_constraintTop_toBottomOf="@+id/nontextView_1" />
+
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_omu"
+            android:text="흑염룡"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_ImageView_ic" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
