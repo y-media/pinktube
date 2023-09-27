@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <VideoView
-        android:id="@+id/shorts_page_vv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/shorts_page_exoplayer_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,17 +22,49 @@
         android:layout_margin="20dp"
         android:src="@drawable/ic_back_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/shorts_title_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:layout_marginEnd="10dp"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_profile"
+        app:layout_constraintStart_toStartOf="@id/shorts_page_iv_profile"
+        tools:text="123asdasd" />
+
+    <TextView
+        android:id="@+id/shorts_channel_id_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@id/shorts_page_iv_like"
+        app:layout_constraintBottom_toBottomOf="@id/shorts_page_iv_profile"
+        app:layout_constraintStart_toEndOf="@id/shorts_page_iv_profile"
+        app:layout_constraintTop_toTopOf="@id/shorts_page_iv_profile"
+        tools:text="123" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_like"
@@ -57,14 +91,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:src="@drawable/ic_share_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
-
-
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:progressDrawable="@drawable/progressbar_style"
+        android:max="100"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

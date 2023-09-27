@@ -37,7 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
         buildConfig = true
     }
@@ -49,6 +49,7 @@ dependencies {
     def glide_version = "4.13.2"
     def retrofit_version = "2.9.0"
     def room_version = "2.5.0"
+    def media3_version = "1.1.1"
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -64,7 +65,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
     implementation "com.github.skydoves:powerspinner:1.2.6"
@@ -79,8 +81,11 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    //ExoPlayer
+    implementation "androidx.media3:media3-exoplayer:$media3_version"
+    implementation "androidx.media3:media3-ui:$media3_version"
+
     implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-hls:2.14.1"
+
 }
