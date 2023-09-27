@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.spartube.home.HomeFragment
 import com.example.spartube.R
-import com.example.spartube.search.SearchFragment
 
 class MainViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
     private val fragments = ArrayList<MainTab>()
