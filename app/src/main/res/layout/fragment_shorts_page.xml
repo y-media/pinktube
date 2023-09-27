@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shorts.ShortsPageFragment">
+    tools:context=".shorts.ShortsPageFragment"
+    tools:background="#d9d9d9">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shorts_page_rv"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/shorts_page_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/shorts_page_item"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
