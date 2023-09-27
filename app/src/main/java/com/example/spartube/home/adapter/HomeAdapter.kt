@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.spartube.databinding.ItemRecyclerHomeBinding
 import com.example.spartube.home.BindingModel
+import java.text.DecimalFormat
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -33,19 +34,22 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+
         holder.bind(list[position])
+
     }
+
     inner class HomeViewHolder(private val binding: ItemRecyclerHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: BindingModel) = with(binding) {
             itemTimeTextView.text = model.runningTime
-            itemCountTextView.text = model.viewCount+"회"
+            itemCountTextView.text = model.viewCount + "회"
             itemTitleTextView.text = model.title
             itemDateTextView.text = model.publishedAt
             Glide.with(binding.root)
                 .load(Uri.parse(model.thumbnailUrl))
                 .fitCenter()
-                .override(500,400)
+                .override(500, 400)
                 .into(itemThumbnailImageView)
 
         }
