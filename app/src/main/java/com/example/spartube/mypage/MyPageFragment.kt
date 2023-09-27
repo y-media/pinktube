@@ -1,3 +1,5 @@
+package com.example.spartube.mypage
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
-import com.example.spartube.db.MyPageEntity
 import com.example.spartube.databinding.FragmentMyPageBinding
+import com.example.spartube.db.MyPageEntity
 
 class MyPageFragment : Fragment() {
     // View Binding을 사용한 프로퍼티 선언
@@ -21,7 +23,6 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
 
         // View Binding을 초기화하고 루트 뷰를 반환
