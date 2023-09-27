@@ -5,83 +5,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/main_popular_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/font_omu"
-        android:text="@string/most_popular_home"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_popular_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="@id/main_popular_text"
-        app:layout_constraintTop_toBottomOf="@id/main_popular_text"
-        tools:listitem="@layout/item_recycler_home" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/main_spinner_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:drawableTint="@color/black"
-        android:fontFamily="@font/font_omu"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="start"
-        android:hint="@string/choose_category_home"
-        android:pointerIcon="arrow"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:background="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/main_popular_text"
-        app:layout_constraintTop_toBottomOf="@id/main_popular_recycler_view"
-        app:spinner_arrow_gravity="end"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_item_height="46dp"
-        app:spinner_popup_animation="normal"
-        app:spinner_popup_elevation="14dp" />
+            <TextView
+                android:id="@+id/main_popular_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/font_omu"
+                android:text="@string/most_popular_home"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_category_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="@id/main_spinner_view"
-        app:layout_constraintTop_toBottomOf="@id/main_spinner_view"
-        tools:listitem="@layout/item_recycler_home" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_popular_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/main_popular_text"
+                app:layout_constraintTop_toBottomOf="@id/main_popular_text"
+                tools:listitem="@layout/item_recycler_home" />
 
-    <TextView
-        android:id="@+id/main_category_channel_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/font_omu"
-        android:text="@string/channel_of_category_home"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/main_popular_text"
-        app:layout_constraintTop_toBottomOf="@id/main_category_recycler_view" />
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/main_spinner_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:drawableTint="@color/black"
+                android:fontFamily="@font/font_omu"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="start"
+                android:hint="@string/choose_category_home"
+                android:pointerIcon="arrow"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/main_popular_text"
+                app:layout_constraintTop_toBottomOf="@id/main_popular_recycler_view"
+                app:spinner_arrow_gravity="end"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_height="46dp"
+                app:spinner_popup_animation="normal"
+                app:spinner_popup_elevation="14dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_category_channel_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="@id/main_category_channel_text"
-        app:layout_constraintTop_toBottomOf="@id/main_category_channel_text"
-        tools:listitem="@layout/item_recycler_home" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_category_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/main_spinner_view"
+                app:layout_constraintTop_toBottomOf="@id/main_spinner_view"
+                tools:listitem="@layout/item_recycler_home" />
+
+            <TextView
+                android:id="@+id/main_category_channel_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_omu"
+                android:text="@string/channel_of_category_home"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/main_popular_text"
+                app:layout_constraintTop_toBottomOf="@id/main_category_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_category_channel_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/main_category_channel_text"
+                app:layout_constraintTop_toBottomOf="@id/main_category_channel_text"
+                tools:listitem="@layout/item_recycler_home" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
