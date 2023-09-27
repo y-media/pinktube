@@ -8,6 +8,7 @@ import com.example.spartube.R
 import com.example.spartube.search.SearchFragment
 import com.example.spartube.shorts.ShortsPageFragment
 
+
 class MainViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
     private val fragments = ArrayList<MainTab>()
 
