@@ -17,7 +17,7 @@ object RetrofitModule {
             .addInterceptor(
                 //로깅 인터셉터
                 HttpLoggingInterceptor().apply {
-                    level = if(BuildConfig.DEBUG) {
+                    level = if (BuildConfig.DEBUG) {
                         HttpLoggingInterceptor.Level.BODY
                     } else {
                         HttpLoggingInterceptor.Level.NONE
@@ -25,8 +25,9 @@ object RetrofitModule {
                 }
             )
             .build()
+
     private val youtubeService: YouTubeSearchService by lazy {
-         Retrofit.Builder()
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(buildOkHttpClient())
@@ -37,13 +38,20 @@ object RetrofitModule {
     suspend fun getVideos(): Response<ResponseModel> {
         return youtubeService.getVideos()
     }
+
     suspend fun getVideos(category: String?): Response<ResponseModel> {
         return youtubeService.getVideos(categoryId = category)
     }
+
     suspend fun getVideosByChannel(channelId: String?): Response<ResponseModel> {
         return youtubeService.getVideosByChannel(channelId = channelId)
     }
+
     suspend fun getCategories(): Response<ResponseCategory> {
         return youtubeService.getVideoCategories()
+    }
+
+    suspend fun getShortsVideos(token: String?): Response<ResponseModel> {
+        return youtubeService.getShorts(pageToken = token)
     }
 }

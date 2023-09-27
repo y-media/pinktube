@@ -35,12 +35,13 @@ interface YouTubeSearchService {
     ): Response<ResponseModel>
 
     // 여러 개 가져와서 duration이 1분 이하만 필터링
-    @GET("v3/video")
+    @GET("v3/videos")
     suspend fun getShorts(
         @Query("key") token: String = BuildConfig.YOUTUBE_API_KEY,
         @Query("part") part: String = "snippet,contentDetails,statistics",
         @Query("chart") query: String? = "mostPopular",
-        @Query("maxResults") count: Int = 50
+        @Query("maxResults") count: Int = 50,
+        @Query("pageToken") pageToken: String? = null,
     ): Response<ResponseModel>
 
     companion object {
