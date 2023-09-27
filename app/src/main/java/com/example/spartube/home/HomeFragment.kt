@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentHomeBinding
 import com.example.spartube.home.adapter.CategoryAdapter
+import com.example.spartube.home.adapter.CategoryChannelAdapter
 import com.example.spartube.home.adapter.HomeAdapter
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.CoroutineScope
@@ -27,14 +28,20 @@ class HomeFragment : Fragment() {
     private val homeAdapter by lazy {
         HomeAdapter()
     }
+
     // choose category recyclerview adapter
     private val categoryAdapter by lazy {
         CategoryAdapter()
     }
+
+    private val categoryChannelAdapter by lazy{
+        CategoryChannelAdapter()
+    }
+
     private val categoriesList = arrayListOf<Triple<String, String, String>>()
     private val modelsList = arrayListOf<BindingModel>()
     private val categoryModels = arrayListOf<BindingModel>()
-    private val channelModels = arrayListOf<BindingModel>()
+    private val channelModels = arrayListOf<ChannelBindingModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +59,9 @@ class HomeFragment : Fragment() {
         }
         binding.mainCategoryRecyclerView.apply {
             adapter = categoryAdapter
+        }
+        binding.mainCategoryChannelRecyclerView.apply {
+            adapter = categoryChannelAdapter
         }
 
         // 코루틴을 통해 데이터 가져오기
@@ -84,8 +94,14 @@ class HomeFragment : Fragment() {
                      *   snippet.assignable	boolean
                      *   동영상을 카테고리와 연결할 수 있는지를 나타냅니다.
                      */
-                    if(item.snippet.assignable)
-                        categoriesList.add(Triple(item.snippet.title, item.id, item.snippet.channelId))
+                    if (item.snippet.assignable)
+                        categoriesList.add(
+                            Triple(
+                                item.snippet.title,
+                                item.id,
+                                item.snippet.channelId
+                            )
+                        )
                 }
             }
 
@@ -128,11 +144,6 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                // 카테고리별 *채널 목록* 가져오기
-//                channelRes.body()?.let {
-//
-//                }
-
                 if (isAdded) {
                     requireActivity().runOnUiThread {
                         // 카테고리별 영상 리사이클러뷰에 데이터 바인딩
@@ -140,6 +151,29 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val channelRes = RetrofitModule.getVideosByChannel(categoryInfo?.third)
+//                // 카테고리별 *채널 목록* 가져오기
+//                channelRes.body()?.let { channelList ->
+//                    channelList.items.forEach { item ->
+//                        channelModels.add(
+//                            ChannelBindingModel(
+//                                id = item.id,
+//                                channelId = item.snippet.channelId,
+//                                channelTitle = item.snippet.channelTitle,
+//                                url = item.snippet.thumbnails.default.url
+//                            )
+//                        )
+//                    }
+//                }
+//                if (isAdded) {
+//                    requireActivity().runOnUiThread {
+//                        // 카테고리별 영상 리사이클러뷰에 데이터 바인딩
+//                        categoryChannelAdapter.addItems(channelModels)
+//                    }
+//                }
+//            }
         }
     }
 
@@ -161,5 +195,17 @@ data class BindingModel(
     @SerializedName("viewCount")
     val viewCount: String,
     @SerializedName("publishedAt")
-    val publishedAt: String
+    val publishedAt: String,
 )
+
+data class ChannelBindingModel(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("channelId")
+    val channelId: String,
+    @SerializedName("channelTitle")
+    val channelTitle: String,
+    @SerializedName("url")
+    val url: String,
+)
+
