@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.media3.ui.PlayerView
-        android:id="@+id/shorts_page_exoplayer_view"
+        android:id="@+id/shorts_page_video_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:use_controller="false"
+        app:auto_show="true"
+        app:shutter_background_color="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +35,16 @@
         android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/shorts_control_icon_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_pause" />
 
     <TextView
         android:id="@+id/shorts_title_view"
