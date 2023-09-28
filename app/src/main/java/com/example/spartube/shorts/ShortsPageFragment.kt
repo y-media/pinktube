@@ -168,10 +168,6 @@ class ShortsPageFragment : Fragment() {
         prefs.time = player.currentPosition
     }
 
-    private fun updateProgressBar() {
-
-    }
-
     private fun releasePlayer() {
         player?.release()
         player = null

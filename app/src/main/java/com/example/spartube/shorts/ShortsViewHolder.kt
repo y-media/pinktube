@@ -2,7 +2,10 @@ package com.example.spartube.shorts
 
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.ProgressBar
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -20,7 +23,7 @@ class ShortsViewHolder(
     private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
-
+    private var duration: Long? = 0L
     fun bind(model: BindingModel) = with(binding) {
         val player = ExoPlayer.Builder(context).build()
         val dataSourceFactory = DefaultDataSource.Factory(context)
@@ -61,5 +64,24 @@ class ShortsViewHolder(
             }
         }
         println(player.contentDuration)
+        Handler(Looper.getMainLooper()).postDelayed({
+            duration = player.contentDuration
+            duration?.let {
+                updateProgressBar(it, progressBar, player)
+            }
+        }, 600)
     }
+
+    private fun updateProgressBar(duration: Long, progressBar: ProgressBar, player: ExoPlayer) {
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                val currentPosition = player.currentPosition
+                progressBar.progress = ((currentPosition * 100) / duration.toInt()).toInt()
+                handler.postDelayed(this, 500)
+            }
+        }
+        handler.postDelayed(runnable, 0)
+    }
+
 }
