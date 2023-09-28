@@ -1,6 +1,8 @@
 package com.example.spartube.shorts
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.shorts.util.PreferenceUtils
+import com.example.spartube.shorts.util.SnapPagerScrollListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,6 +38,7 @@ class ShortsPageFragment : Fragment() {
     }
     private var nextPageToken: String? = null
     private var player: ExoPlayer? = null
+    private val snapHelper = PagerSnapHelper()
     private val endScrollListener by lazy {
         object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -50,6 +54,18 @@ class ShortsPageFragment : Fragment() {
                 }
             }
         }
+    }
+    private val snapScrollListener by lazy {
+        SnapPagerScrollListener(
+            snapHelper,
+            SnapPagerScrollListener.ON_SCROLL,
+            true,
+            object : SnapPagerScrollListener.OnChangeListener {
+                override fun onSnapped(position: Int) {
+                    player?.pause()
+                }
+            }
+        )
     }
     private lateinit var prefs: PreferenceUtils
 
@@ -76,8 +92,8 @@ class ShortsPageFragment : Fragment() {
             adapter = shortPageRecyclerAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             addOnScrollListener(endScrollListener)
+            addOnScrollListener(snapScrollListener)
         }
-        val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(shortsPageRecyclerView)
         fetchItems()
     }
@@ -131,21 +147,20 @@ class ShortsPageFragment : Fragment() {
     ) = with(binding) {
         println(BASE_VIDEO_URL + model.linkId)
         if (isPlaying) {
-            println("pause")
             pauseVideo(player)
         } else {
-            println("play")
             playVideo(player)
         }
     }
 
     private fun playVideo(player: ExoPlayer) {
-        println(prefs.time)
+//        println(prefs.time)
         if (prefs.time != null && prefs.time!! > 0L) {
             player.seekTo(prefs.time!!)
         }
         player.prepare()
         player.play()
+        println(player.contentDuration)
     }
 
     private fun pauseVideo(player: ExoPlayer) {
@@ -153,6 +168,9 @@ class ShortsPageFragment : Fragment() {
         prefs.time = player.currentPosition
     }
 
+    private fun updateProgressBar() {
+
+    }
 
     private fun releasePlayer() {
         player?.release()
