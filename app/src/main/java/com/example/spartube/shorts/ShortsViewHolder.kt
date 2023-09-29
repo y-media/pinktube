@@ -20,7 +20,8 @@ import com.example.spartube.databinding.ShortsPageItemBinding
 class ShortsViewHolder(
     private val binding: ShortsPageItemBinding,
     private val context: Context,
-    private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit
+    private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
+    private val onClickShareView: (BindingModel) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
     private var duration: Long? = 0L
@@ -63,7 +64,9 @@ class ShortsViewHolder(
                 )
             }
         }
-        println(player.contentDuration)
+        shortsPageIvShare.setOnClickListener {
+            onClickShareView(model)
+        }
         Handler(Looper.getMainLooper()).postDelayed({
             duration = player.contentDuration
             duration?.let {

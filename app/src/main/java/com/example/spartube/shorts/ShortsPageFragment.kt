@@ -1,8 +1,7 @@
 package com.example.spartube.shorts
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +32,13 @@ class ShortsPageFragment : Fragment() {
             onClickItem = { position, model, view, player, isPlaying ->
                 this.player = player
                 controlVideo(position, model, view, player, isPlaying)
+            },
+            onClickShareView = { model ->
+                shareYoutubeInfo(model)
             }
         )
     }
+
     private var nextPageToken: String? = null
     private var player: ExoPlayer? = null
     private val snapHelper = PagerSnapHelper()
@@ -138,6 +141,18 @@ class ShortsPageFragment : Fragment() {
         }
     }
 
+
+    private fun shareYoutubeInfo(model: BindingModel) {
+        val youtubeInfo = "${model.title} \n\n $BASE_VIDEO_URL${model.linkId}"
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, youtubeInfo)
+            type = "text/plain"
+        }
+        val sharingIntent = Intent.createChooser(intent, "공유하기")
+        startActivity(sharingIntent)
+    }
+
+
     private fun controlVideo(
         position: Int,
         model: BindingModel,
@@ -154,7 +169,6 @@ class ShortsPageFragment : Fragment() {
     }
 
     private fun playVideo(player: ExoPlayer) {
-//        println(prefs.time)
         if (prefs.time != null && prefs.time!! > 0L) {
             player.seekTo(prefs.time!!)
         }

@@ -12,7 +12,8 @@ import com.example.spartube.databinding.ShortsPageItemBinding
 @UnstableApi
 class ShortsPageAdapter(
     private val context: Context,
-    private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit
+    private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
+    private val onClickShareView: (BindingModel) -> Unit
 ) : RecyclerView.Adapter<ShortsViewHolder>() {
     private val list = arrayListOf<BindingModel>()
     fun addItems(items: List<BindingModel>) {
@@ -29,7 +30,8 @@ class ShortsPageAdapter(
                 false
             ),
             context,
-            onClickItem
+            onClickItem,
+            onClickShareView
         )
     }
 
