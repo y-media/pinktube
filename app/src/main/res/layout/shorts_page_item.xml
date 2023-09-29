@@ -82,21 +82,25 @@
         android:id="@+id/shorts_page_iv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_heart_empty"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_comment"
-        app:layout_constraintEnd_toStartOf="@+id/shorts_page_iv_comment"
-        app:layout_constraintTop_toTopOf="@+id/shorts_page_iv_comment" />
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_comment" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_comment"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_share"
-        app:layout_constraintEnd_toStartOf="@+id/shorts_page_iv_share"
-        app:layout_constraintTop_toTopOf="@+id/shorts_page_iv_share" />
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_share" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_share"
@@ -105,6 +109,9 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:src="@drawable/ic_share_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
