@@ -2,6 +2,7 @@ package com.example.spartube.data.service
 
 import com.example.spartube.BuildConfig
 import com.example.spartube.data.model.categorymodel.ResponseCategory
+import com.example.spartube.data.model.commentmodel.ResponseComment
 import com.example.spartube.data.model.videomodel.ResponseModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -43,6 +44,15 @@ interface YouTubeSearchService {
         @Query("maxResults") count: Int = 50,
         @Query("pageToken") pageToken: String? = null,
     ): Response<ResponseModel>
+
+    @GET("v3/commentThreads")
+    suspend fun getCommentsOfShorts(
+        @Query("key") token: String? = BuildConfig.YOUTUBE_API_KEY,
+        @Query("part") part: String? = "id,snippet,replies",
+        @Query("order") ordering: String? = "relevance",
+        @Query("textFormat") format: String? = "plainText",
+        @Query("videoId") videoId: String?
+    ): Response<ResponseComment>
 
     companion object {
         const val BASE_URL = "https://www.googleapis.com/youtube/"
