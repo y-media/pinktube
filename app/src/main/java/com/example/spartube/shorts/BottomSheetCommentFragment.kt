@@ -19,16 +19,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheetCommentFragment(
-    private val context: Context
-) : BottomSheetDialogFragment() {
+class BottomSheetCommentFragment : BottomSheetDialogFragment() {
     private var _binding: ShortsCommentBinding? = null
     private val binding: ShortsCommentBinding
         get() = _binding!!
     private val commentsAdapter by lazy {
         CommentsAdapter(
             onClickReply = { model ->
-                showReplyFragment(model)
+                showReplyView(model)
             }
         )
     }
@@ -77,14 +75,14 @@ class BottomSheetCommentFragment(
         }
     }
 
-    private fun showReplyFragment(model: CommentSetBindingModel) = with(binding) {
+    private fun showReplyView(model: CommentSetBindingModel) = with(binding) {
         val startAnimation =
             TranslateAnimation(shortsReplyRecyclerView.width.toFloat(), 0f, 0f, 0f).apply {
-                duration = 500
+                duration = 300
             }
         val endAnimation =
             TranslateAnimation(0f, shortsReplyRecyclerView.width.toFloat(), 0f, 0f).apply {
-                duration = 500
+                duration = 300
             }
         val replyModel = mappingModel(model)
         titleTextView.text = "답글"
@@ -94,13 +92,13 @@ class BottomSheetCommentFragment(
                 backBtn.isVisible = false
                 titleTextView.text = "댓글"
                 shortsReplyRecyclerView.run {
-                    this.animation = endAnimation
+                    animation = endAnimation
                     isVisible = false
                 }
             }
         }
         shortsReplyRecyclerView.run {
-            this.animation = startAnimation
+            animation = startAnimation
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = replyAdapter.apply {
                 addItems(replyModel)
@@ -139,7 +137,7 @@ class BottomSheetCommentFragment(
 
     companion object {
         const val TAG = "BOTTOM_SHEET_FRAGMENT"
-        fun newInstance(context: Context) = BottomSheetCommentFragment(context)
+        fun newInstance() = BottomSheetCommentFragment()
     }
 }
 

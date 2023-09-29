@@ -183,7 +183,7 @@ class ShortsPageFragment : Fragment() {
         }
 
     private fun showCommentsWithBottomSheet(model: BindingModel) = with(binding) {
-        val bottomSheet = BottomSheetCommentFragment.newInstance(requireActivity())
+        val bottomSheet = BottomSheetCommentFragment.newInstance()
         bottomSheet.show(parentFragmentManager, BottomSheetCommentFragment.TAG)
         runCatching {
             getComments(model.linkId, bottomSheet)
