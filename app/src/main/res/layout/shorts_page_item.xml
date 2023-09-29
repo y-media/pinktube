@@ -72,21 +72,19 @@
         android:singleLine="true"
         android:maxLines="1"
         android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="@id/shorts_page_iv_like"
+        app:layout_constraintEnd_toEndOf="@id/shorts_page_checkbox_like"
         app:layout_constraintBottom_toBottomOf="@id/shorts_page_iv_profile"
         app:layout_constraintStart_toEndOf="@id/shorts_page_iv_profile"
         app:layout_constraintTop_toTopOf="@id/shorts_page_iv_profile"
         tools:text="123" />
 
-    <ImageView
-        android:id="@+id/shorts_page_iv_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <CheckBox
+        android:id="@+id/shorts_page_checkbox_like"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_heart_empty"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
+        android:button="@null"
+        android:background="@drawable/selector_is_liked"
         app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_comment"
         app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_comment" />
 
