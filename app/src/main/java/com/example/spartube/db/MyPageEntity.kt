@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MyPageEntity (
+data class MyPageEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    val id: Int? = null,
     @ColumnInfo
     val thumbnailUrl: String?,
     @ColumnInfo

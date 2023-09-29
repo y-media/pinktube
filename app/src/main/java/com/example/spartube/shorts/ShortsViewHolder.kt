@@ -21,7 +21,8 @@ class ShortsViewHolder(
     private val binding: ShortsPageItemBinding,
     private val context: Context,
     private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
-    private val onClickShareView: (BindingModel) -> Unit
+    private val onClickShareView: (BindingModel) -> Unit,
+    private val onClickLiked: (BindingModel, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
     private var duration: Long? = 0L
@@ -66,6 +67,9 @@ class ShortsViewHolder(
         }
         shortsPageIvShare.setOnClickListener {
             onClickShareView(model)
+        }
+        shortsPageCheckboxLike.setOnCheckedChangeListener { _, isLiked ->
+            onClickLiked(model, isLiked)
         }
         Handler(Looper.getMainLooper()).postDelayed({
             duration = player.contentDuration

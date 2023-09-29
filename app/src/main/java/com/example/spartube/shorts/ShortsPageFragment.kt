@@ -12,8 +12,11 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.ColumnInfo
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
+import com.example.spartube.db.AppDatabase
+import com.example.spartube.db.MyPageEntity
 import com.example.spartube.shorts.util.PreferenceUtils
 import com.example.spartube.shorts.util.SnapPagerScrollListener
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +38,9 @@ class ShortsPageFragment : Fragment() {
             },
             onClickShareView = { model ->
                 shareYoutubeInfo(model)
+            },
+            onClickLiked = { model, isLiked ->
+                setIsLikedToDB(model, isLiked)
             }
         )
     }
@@ -122,11 +128,13 @@ class ShortsPageFragment : Fragment() {
             }.forEach { item ->
                 shortsList.add(
                     BindingModel(
-                        linkId = item.id,
-                        channelId = item.snippet.channelId,
-                        title = item.snippet.title,
-                        replyCount = item.statistics.commentCount,
-                        duration = item.contentDetails.duration
+                        linkId = item.id,  //
+                        channelId = item.snippet.channelId, //
+                        title = item.snippet.title, //
+                        description = item.snippet.description, //
+                        thumbnail = item.snippet.thumbnails.default.url, //
+                        replyCount = item.statistics.commentCount, // 삭제
+                        duration = item.contentDetails.duration // 삭제
                     )
                 )
             }
@@ -151,6 +159,26 @@ class ShortsPageFragment : Fragment() {
         val sharingIntent = Intent.createChooser(intent, "공유하기")
         startActivity(sharingIntent)
     }
+
+
+    private fun setIsLikedToDB(model: BindingModel, liked: Boolean) =
+        CoroutineScope(Dispatchers.IO).launch {
+            val entity = MyPageEntity(
+                thumbnailUrl = model.thumbnail,
+                title = model.title,
+                description = model.description
+            )
+            val database = AppDatabase.getDatabase(requireActivity())
+            when (liked) {
+                true -> {
+                    println(entity)
+                    database.myPageDao().insertVideo(entity)
+                }
+
+                false -> database.myPageDao().deleteVideo(entity)
+            }
+//            database.close() //?
+        }
 
 
     private fun controlVideo(
@@ -210,6 +238,8 @@ data class BindingModel(
     val linkId: String,
     val channelId: String?,
     val title: String?,
-    val replyCount: String?,
-    val duration: String?,
+    val description: String?,
+    val thumbnail: String?,
+    val replyCount: String?, // 삭제
+    val duration: String?, // 삭제
 )
