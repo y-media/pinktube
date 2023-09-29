@@ -12,13 +12,16 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.ColumnInfo
+import com.example.spartube.data.model.commentmodel.Replies
+import com.example.spartube.data.model.commentmodel.SnippetX
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
 import com.example.spartube.db.MyPageEntity
+import com.example.spartube.shorts.recyclerview.ShortsPageAdapter
 import com.example.spartube.shorts.util.PreferenceUtils
 import com.example.spartube.shorts.util.SnapPagerScrollListener
+import com.example.spartube.util.Converter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +32,7 @@ class ShortsPageFragment : Fragment() {
     private val binding: FragmentShortsPageBinding
         get() = _binding!!
     private val shortsList = arrayListOf<BindingModel>()
+    private val commentsSetList = arrayListOf<CommentSetBindingModel>()
     private val shortPageRecyclerAdapter by lazy {
         ShortsPageAdapter(
             context = requireActivity(),
@@ -41,6 +45,9 @@ class ShortsPageFragment : Fragment() {
             },
             onClickLiked = { model, isLiked ->
                 setIsLikedToDB(model, isLiked)
+            },
+            onClickComment = { model ->
+                showCommentsWithBottomSheet(model)
             }
         )
     }
@@ -170,16 +177,51 @@ class ShortsPageFragment : Fragment() {
             )
             val database = AppDatabase.getDatabase(requireActivity())
             when (liked) {
-                true -> {
-                    println(entity)
-                    database.myPageDao().insertVideo(entity)
-                }
-
+                true -> database.myPageDao().insertVideo(entity)
                 false -> database.myPageDao().deleteVideo(entity)
             }
 //            database.close() //?
         }
 
+    private fun showCommentsWithBottomSheet(model: BindingModel) = with(binding) {
+        val bottomSheet = BottomSheetFragment(requireActivity())
+        bottomSheet.show(parentFragmentManager, BottomSheetFragment.TAG)
+        runCatching {
+            getComments(model.linkId, bottomSheet)
+        }.onFailure {
+            Toast.makeText(requireActivity(), "로딩 실패", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getComments(linkId: String, bottomSheetFragment: BottomSheetFragment) {
+        CoroutineScope(Dispatchers.IO).launch {
+            commentsSetList.clear()
+            val responseComments = RetrofitModule.getCommentsOfShorts(linkId)
+            responseComments.body()?.let { comments ->
+                comments.items.forEach { comment ->
+                    commentsSetList.add(
+                        CommentSetBindingModel(
+                            comment.snippet,
+                            comment.replies
+                        )
+
+                    )
+//                    commentsList.add(
+//                        CommentBindingModel(
+//                            userImageUrl = comment.snippet.topLevelComment.snippet.authorProfileImageUrl,
+//                            userName = ,
+//                            publishedAt = ,
+//                            description = ,
+//                            likeCount = ,
+//                        )
+//                    )
+                }
+                requireActivity().runOnUiThread {
+                    bottomSheetFragment.addComments(commentsSetList)
+                }
+            }
+        }
+    }
 
     private fun controlVideo(
         position: Int,
@@ -243,3 +285,27 @@ data class BindingModel(
     val replyCount: String?, // 삭제
     val duration: String?, // 삭제
 )
+
+data class CommentBindingModel(
+    val userImageUrl: String?,
+    val userName: String?,
+    val publishedAt: String?,
+    val description: String?,
+    val likeCount: Int?,
+)
+
+data class CommentSetBindingModel(
+    val topLevelCommentType: SnippetX,
+    val repliesFromTop: Replies?
+) {
+    fun toCommentBindingModel(): CommentBindingModel {
+        val snippet = topLevelCommentType.topLevelComment.snippet
+        return CommentBindingModel(
+            userImageUrl = snippet.authorProfileImageUrl,
+            userName = snippet.authorDisplayName,
+            publishedAt = Converter.getDateFromTimestampWithFormat(snippet.publishedAt),
+            description = snippet.textDisplay,
+            likeCount = snippet.likeCount,
+        )
+    }
+}

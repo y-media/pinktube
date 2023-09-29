@@ -1,4 +1,4 @@
-package com.example.spartube.shorts
+package com.example.spartube.shorts.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,13 +8,15 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageItemBinding
+import com.example.spartube.shorts.BindingModel
 
 @UnstableApi
 class ShortsPageAdapter(
     private val context: Context,
     private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
     private val onClickShareView: (BindingModel) -> Unit,
-    private val onClickLiked: (BindingModel, Boolean) -> Unit
+    private val onClickLiked: (BindingModel, Boolean) -> Unit,
+    private val onClickComment: (BindingModel) -> Unit
 ) : RecyclerView.Adapter<ShortsViewHolder>() {
     private val list = arrayListOf<BindingModel>()
     fun addItems(items: List<BindingModel>) {
@@ -33,7 +35,8 @@ class ShortsPageAdapter(
             context,
             onClickItem,
             onClickShareView,
-            onClickLiked
+            onClickLiked,
+            onClickComment
         )
     }
 

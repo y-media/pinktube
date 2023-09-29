@@ -1,4 +1,4 @@
-package com.example.spartube.shorts
+package com.example.spartube.shorts.recyclerview
 
 import android.content.Context
 import android.net.Uri
@@ -15,6 +15,7 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
 import com.example.spartube.databinding.ShortsPageItemBinding
+import com.example.spartube.shorts.BindingModel
 
 @UnstableApi
 class ShortsViewHolder(
@@ -22,7 +23,8 @@ class ShortsViewHolder(
     private val context: Context,
     private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
     private val onClickShareView: (BindingModel) -> Unit,
-    private val onClickLiked: (BindingModel, Boolean) -> Unit
+    private val onClickLiked: (BindingModel, Boolean) -> Unit,
+    private val onClickComment: (BindingModel) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
     private var duration: Long? = 0L
@@ -70,6 +72,9 @@ class ShortsViewHolder(
         }
         shortsPageCheckboxLike.setOnCheckedChangeListener { _, isLiked ->
             onClickLiked(model, isLiked)
+        }
+        shortsPageIvComment.setOnClickListener {
+            onClickComment(model)
         }
         Handler(Looper.getMainLooper()).postDelayed({
             duration = player.contentDuration
