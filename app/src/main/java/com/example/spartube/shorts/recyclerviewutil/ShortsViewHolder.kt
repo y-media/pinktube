@@ -1,4 +1,4 @@
-package com.example.spartube.shorts.recyclerview
+package com.example.spartube.shorts.recyclerviewutil
 
 import android.content.Context
 import android.net.Uri
@@ -15,7 +15,6 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
 import com.example.spartube.databinding.ShortsPageItemBinding
-import com.example.spartube.shorts.BindingModel
 
 @UnstableApi
 class ShortsViewHolder(

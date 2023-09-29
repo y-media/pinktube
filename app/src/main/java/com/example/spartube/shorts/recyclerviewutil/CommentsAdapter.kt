@@ -1,15 +1,16 @@
-package com.example.spartube.shorts.recyclerview
+package com.example.spartube.shorts.recyclerviewutil
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
-import com.example.spartube.shorts.CommentBindingModel
 
-class CommentsAdapter : RecyclerView.Adapter<CommentsViewHolder>() {
+class CommentsAdapter(
+    private val onClickReply: (CommentSetBindingModel) -> Unit
+) : RecyclerView.Adapter<CommentsViewHolder>() {
 
-    private val list = arrayListOf<CommentBindingModel>()
-    fun addItems(items: List<CommentBindingModel>) {
+    private val list = arrayListOf<CommentSetBindingModel>()
+    fun addItems(items: List<CommentSetBindingModel>) {
         list.clear()
         list.addAll(items)
         notifyDataSetChanged()
@@ -21,7 +22,8 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsViewHolder>() {
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onClickReply
         )
     }
 

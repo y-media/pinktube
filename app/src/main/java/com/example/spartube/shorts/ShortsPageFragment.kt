@@ -12,16 +12,15 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spartube.data.model.commentmodel.Replies
-import com.example.spartube.data.model.commentmodel.SnippetX
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
 import com.example.spartube.db.MyPageEntity
-import com.example.spartube.shorts.recyclerview.ShortsPageAdapter
+import com.example.spartube.shorts.recyclerviewutil.BindingModel
+import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
+import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
 import com.example.spartube.shorts.util.PreferenceUtils
 import com.example.spartube.shorts.util.SnapPagerScrollListener
-import com.example.spartube.util.Converter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -184,8 +183,8 @@ class ShortsPageFragment : Fragment() {
         }
 
     private fun showCommentsWithBottomSheet(model: BindingModel) = with(binding) {
-        val bottomSheet = BottomSheetFragment(requireActivity())
-        bottomSheet.show(parentFragmentManager, BottomSheetFragment.TAG)
+        val bottomSheet = BottomSheetCommentFragment.newInstance(requireActivity())
+        bottomSheet.show(parentFragmentManager, BottomSheetCommentFragment.TAG)
         runCatching {
             getComments(model.linkId, bottomSheet)
         }.onFailure {
@@ -193,7 +192,7 @@ class ShortsPageFragment : Fragment() {
         }
     }
 
-    private fun getComments(linkId: String, bottomSheetFragment: BottomSheetFragment) {
+    private fun getComments(linkId: String, bottomSheetFragment: BottomSheetCommentFragment) {
         CoroutineScope(Dispatchers.IO).launch {
             commentsSetList.clear()
             val responseComments = RetrofitModule.getCommentsOfShorts(linkId)
@@ -202,19 +201,12 @@ class ShortsPageFragment : Fragment() {
                     commentsSetList.add(
                         CommentSetBindingModel(
                             comment.snippet,
-                            comment.replies
+                            comment.replies,
+                            ViewType.OTHER.order
                         )
 
                     )
-//                    commentsList.add(
-//                        CommentBindingModel(
-//                            userImageUrl = comment.snippet.topLevelComment.snippet.authorProfileImageUrl,
-//                            userName = ,
-//                            publishedAt = ,
-//                            description = ,
-//                            likeCount = ,
-//                        )
-//                    )
+                    commentsSetList.first().viewType = ViewType.TOP.order
                 }
                 requireActivity().runOnUiThread {
                     bottomSheetFragment.addComments(commentsSetList)
@@ -273,39 +265,5 @@ class ShortsPageFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         player?.stop()
-    }
-}
-
-data class BindingModel(
-    val linkId: String,
-    val channelId: String?,
-    val title: String?,
-    val description: String?,
-    val thumbnail: String?,
-    val replyCount: String?, // 삭제
-    val duration: String?, // 삭제
-)
-
-data class CommentBindingModel(
-    val userImageUrl: String?,
-    val userName: String?,
-    val publishedAt: String?,
-    val description: String?,
-    val likeCount: Int?,
-)
-
-data class CommentSetBindingModel(
-    val topLevelCommentType: SnippetX,
-    val repliesFromTop: Replies?
-) {
-    fun toCommentBindingModel(): CommentBindingModel {
-        val snippet = topLevelCommentType.topLevelComment.snippet
-        return CommentBindingModel(
-            userImageUrl = snippet.authorProfileImageUrl,
-            userName = snippet.authorDisplayName,
-            publishedAt = Converter.getDateFromTimestampWithFormat(snippet.publishedAt),
-            description = snippet.textDisplay,
-            likeCount = snippet.likeCount,
-        )
     }
 }

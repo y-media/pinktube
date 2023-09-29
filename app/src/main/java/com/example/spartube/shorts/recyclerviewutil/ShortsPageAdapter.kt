@@ -1,4 +1,4 @@
-package com.example.spartube.shorts.recyclerview
+package com.example.spartube.shorts.recyclerviewutil
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageItemBinding
-import com.example.spartube.shorts.BindingModel
 
 @UnstableApi
 class ShortsPageAdapter(
