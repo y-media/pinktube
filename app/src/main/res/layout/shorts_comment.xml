@@ -9,15 +9,27 @@
     app:behavior_peekHeight="0dp"
     app:behavior_hideable="true">
 
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_back"
+        android:layout_marginStart="20dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/title_text_view"
+        app:layout_constraintTop_toTopOf="@id/title_text_view"
+        app:layout_constraintBottom_toBottomOf="@id/title_text_view" />
+
     <TextView
         android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="@string/comment"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/font_omu"
+        app:layout_constraintStart_toEndOf="@id/back_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -50,4 +62,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divide_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shorts_Reply_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divide_view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="30dp"
     android:paddingBottom="30dp">
 
     <androidx.cardview.widget.CardView
@@ -72,19 +73,5 @@
         app:layout_constraintBottom_toBottomOf="@id/comment_thumbs_up"
         app:layout_constraintStart_toEndOf="@id/comment_thumbs_up"
         app:layout_constraintTop_toTopOf="@id/comment_thumbs_up" />
-
-    <TextView
-        android:id="@+id/comment_reply_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/font_omu"
-        android:textColor="#275FFF"
-        android:textSize="25sp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/comment_thumbs_up"
-        app:layout_constraintTop_toBottomOf="@id/comment_thumbs_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
