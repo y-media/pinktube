@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@id/divide_view" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shorts_Reply_recycler_view"
+        android:id="@+id/shorts_reply_recycler_view"
         android:layout_width="0dp"
         android:layout_height="400dp"
         android:visibility="gone"
@@ -73,5 +73,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divide_view" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

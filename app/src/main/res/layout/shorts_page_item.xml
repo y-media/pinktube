@@ -9,13 +9,24 @@
         android:id="@+id/shorts_page_video_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:use_controller="false"
         app:auto_show="true"
-        app:shutter_background_color="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:shutter_background_color="@android:color/transparent"
+        app:use_controller="false"
         app:layout_constraintTop_toTopOf="parent" />
+    <!--    <VideoView-->
+    <!--        android:id="@+id/shorts_page_video_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:use_controller="false"-->
+    <!--        app:auto_show="true"-->
+    <!--        app:shutter_background_color="@android:color/transparent"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
         android:id="@+id/shorts_page_btn_back"
