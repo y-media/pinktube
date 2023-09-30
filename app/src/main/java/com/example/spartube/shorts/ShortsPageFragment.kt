@@ -183,9 +183,12 @@ class ShortsPageFragment : Fragment() {
         }
 
     private fun showCommentsWithBottomSheet(model: BindingModel) = with(binding) {
-        val bottomSheet = BottomSheetCommentFragment.newInstance()
-        bottomSheet.show(parentFragmentManager, BottomSheetCommentFragment.TAG)
-        runCatching {
+        val bottomSheet = BottomSheetCommentFragment.newInstance().apply {
+            arguments = Bundle().apply {
+                putString("videoId", model.linkId)
+            }
+        }
+        bottomSheet.show(parentFragmentManager, BottomSheetCommentFragment.TAG).runCatching {
             getComments(model.linkId, bottomSheet)
         }.onFailure {
             Toast.makeText(requireActivity(), "로딩 실패", Toast.LENGTH_SHORT).show()
@@ -195,21 +198,21 @@ class ShortsPageFragment : Fragment() {
     private fun getComments(linkId: String, bottomSheetFragment: BottomSheetCommentFragment) {
         CoroutineScope(Dispatchers.IO).launch {
             commentsSetList.clear()
-            val responseComments = RetrofitModule.getCommentsOfShorts(linkId)
+            val responseComments = RetrofitModule.getCommentsOfShorts(linkId, null)
             responseComments.body()?.let { comments ->
                 comments.items.forEach { comment ->
                     commentsSetList.add(
                         CommentSetBindingModel(
                             comment.snippet,
                             comment.replies,
-                            ViewType.OTHER.order
+                            ViewType.OTHER.order,
                         )
 
                     )
                     commentsSetList.first().viewType = ViewType.TOP.order
                 }
                 requireActivity().runOnUiThread {
-                    bottomSheetFragment.addComments(commentsSetList)
+                    bottomSheetFragment.addComments(commentsSetList, comments.nextPageToken)
                 }
             }
         }

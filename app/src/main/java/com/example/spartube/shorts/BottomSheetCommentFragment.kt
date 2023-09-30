@@ -1,7 +1,6 @@
 package com.example.spartube.shorts
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,8 @@ import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.ShortsCommentBinding
 import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
 import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
@@ -18,6 +19,9 @@ import com.example.spartube.util.Converter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BottomSheetCommentFragment : BottomSheetDialogFragment() {
     private var _binding: ShortsCommentBinding? = null
@@ -33,6 +37,22 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
     private val replyAdapter by lazy {
         ReplyAdapter()
     }
+    private var token: String? = null
+    private lateinit var videoId: String
+    private val commentsSetList = arrayListOf<CommentSetBindingModel>()
+    private val endScrollListener by lazy {
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) =
+                with(binding) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    // 스크롤이 최하단일 떄
+                    if (!shortsCommentsRecyclerView.canScrollVertically(1)) {
+                        progressBar.isVisible = true
+                        getMoreComments(videoId, token)
+                    }
+                }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +60,7 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ShortsCommentBinding.inflate(layoutInflater)
+        videoId = arguments?.getString("videoId", "").toString()
         return binding.root
     }
 
@@ -62,6 +83,7 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
         shortsCommentsRecyclerView.run {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = commentsAdapter
+            addOnScrollListener(endScrollListener)
         }
     }
 
@@ -126,13 +148,42 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
         return list
     }
 
+    private fun getMoreComments(videoId: String, nextPageToken: String?) = with(binding) {
+        CoroutineScope(Dispatchers.IO).launch {
+            commentsSetList.clear()
+            val responseComments = RetrofitModule.getCommentsOfShorts(videoId, nextPageToken)
+            responseComments.body()?.let { comments ->
+                comments.items.forEach { comment ->
+                    commentsSetList.add(
+                        CommentSetBindingModel(
+                            comment.snippet,
+                            comment.replies,
+                            ViewType.OTHER.order,
+                        )
+
+                    )
+                    commentsSetList.first().viewType = ViewType.TOP.order
+                }
+                requireActivity().runOnUiThread {
+                    addComments(commentsSetList, comments.nextPageToken)
+                    progressBar.isVisible = false
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 
-    fun addComments(commentsSetList: List<CommentSetBindingModel>) {
-        commentsAdapter.addItems(commentsSetList)
+    fun addComments(commentsSetList: List<CommentSetBindingModel>, nextPageToken: String?) {
+        println(commentsSetList)
+        when (nextPageToken) {
+            null -> commentsAdapter.addItems(commentsSetList)
+            else -> commentsAdapter.addMoreItems(commentsSetList)
+        }
+        token = nextPageToken
     }
 
     companion object {

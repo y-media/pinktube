@@ -17,10 +17,14 @@ class CommentsViewHolder(
         commentTimeTextView.text = commentModel.publishedAt
         commentThumbsUpTextView.text = commentModel.likeCount.toString()
         commentProfileImageView.load(commentModel.userImageUrl)
-        if (replySize != null) {
+        if (replySize != 0) {
             commentReplyTextView.run {
-                isVisible = true
-                "답글 ${replySize}개".also { text = it }
+                if (replySize == null) {
+                    isVisible = false
+                } else {
+                    isVisible = true
+                    "답글 ${replySize}개".also { text = it }
+                }
             }
         }
         commentReplyTextView.setOnClickListener {

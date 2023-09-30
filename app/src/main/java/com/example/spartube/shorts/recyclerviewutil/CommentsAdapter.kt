@@ -16,6 +16,11 @@ class CommentsAdapter(
         notifyDataSetChanged()
     }
 
+    fun addMoreItems(items: List<CommentSetBindingModel>) {
+        list.addAll(items)
+        notifyItemInserted(list.size)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
         return CommentsViewHolder(
             ShortsPageCommentItemBinding.inflate(
@@ -34,4 +39,6 @@ class CommentsAdapter(
     override fun getItemCount(): Int {
         return list.size
     }
+
+
 }

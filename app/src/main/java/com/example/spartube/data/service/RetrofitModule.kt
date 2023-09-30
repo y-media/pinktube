@@ -56,7 +56,10 @@ object RetrofitModule {
         return youtubeService.getShorts(pageToken = token)
     }
 
-    suspend fun getCommentsOfShorts(videoId: String?): Response<ResponseComment> {
-        return youtubeService.getCommentsOfShorts(videoId = videoId)
+    suspend fun getCommentsOfShorts(
+        videoId: String?,
+        nextPageToken: String?
+    ): Response<ResponseComment> {
+        return youtubeService.getCommentsOfShorts(videoId = videoId, nextPageToken = nextPageToken)
     }
 }
