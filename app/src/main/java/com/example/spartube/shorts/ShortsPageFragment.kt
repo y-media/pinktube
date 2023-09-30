@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spartube.R
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
@@ -21,6 +21,8 @@ import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
 import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
 import com.example.spartube.shorts.util.PreferenceUtils
 import com.example.spartube.shorts.util.SnapPagerScrollListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,9 +37,8 @@ class ShortsPageFragment : Fragment() {
     private val shortPageRecyclerAdapter by lazy {
         ShortsPageAdapter(
             context = requireActivity(),
-            onClickItem = { position, model, view, player, isPlaying ->
+            onClickItem = { player ->
                 this.player = player
-                controlVideo(position, model, view, player, isPlaying)
             },
             onClickShareView = { model ->
                 shareYoutubeInfo(model)
@@ -52,7 +53,7 @@ class ShortsPageFragment : Fragment() {
     }
 
     private var nextPageToken: String? = null
-    private var player: ExoPlayer? = null
+    private var player: YouTubePlayer? = null
     private val snapHelper = PagerSnapHelper()
     private val endScrollListener by lazy {
         object : RecyclerView.OnScrollListener() {
@@ -83,6 +84,7 @@ class ShortsPageFragment : Fragment() {
         )
     }
     private lateinit var prefs: PreferenceUtils
+    private var youtubePlayerView: YouTubePlayerView? = null
 
     companion object {
         const val BASE_VIDEO_URL = "https://www.youtube.com/watch?v="
@@ -151,6 +153,11 @@ class ShortsPageFragment : Fragment() {
         if (isAdded) {
             requireActivity().runOnUiThread {
                 shortPageRecyclerAdapter.addItems(shortsList)
+                youtubePlayerView =
+                    view?.findViewById(R.id.shorts_page_video_view)
+                youtubePlayerView?.let {
+                    lifecycle.addObserver(it)
+                }
             }
         }
     }
@@ -207,7 +214,6 @@ class ShortsPageFragment : Fragment() {
                             comment.replies,
                             ViewType.OTHER.order,
                         )
-
                     )
                     commentsSetList.first().viewType = ViewType.TOP.order
                 }
@@ -218,44 +224,10 @@ class ShortsPageFragment : Fragment() {
         }
     }
 
-    private fun controlVideo(
-        position: Int,
-        model: BindingModel,
-        view: View,
-        player: ExoPlayer,
-        isPlaying: Boolean
-    ) = with(binding) {
-        println(BASE_VIDEO_URL + model.linkId)
-        if (isPlaying) {
-            pauseVideo(player)
-        } else {
-            playVideo(player)
-        }
-    }
-
-    private fun playVideo(player: ExoPlayer) {
-        if (prefs.time != null && prefs.time!! > 0L) {
-            player.seekTo(prefs.time!!)
-        }
-        player.prepare()
-        player.play()
-        println(player.contentDuration)
-    }
-
-    private fun pauseVideo(player: ExoPlayer) {
-        player.stop()
-        prefs.time = player.currentPosition
-    }
-
-    private fun releasePlayer() {
-        player?.release()
-        player = null
-    }
-
     private fun filteringOverOneMinutes(duration: String): Boolean = duration.contains("M")
 
     override fun onDestroyView() {
-        releasePlayer()
+        youtubePlayerView?.release()
         _binding = null
         super.onDestroyView()
     }
@@ -267,6 +239,6 @@ class ShortsPageFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        player?.stop()
+        player?.pause()
     }
 }

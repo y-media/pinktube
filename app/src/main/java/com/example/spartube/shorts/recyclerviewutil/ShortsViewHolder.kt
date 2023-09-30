@@ -1,69 +1,68 @@
 package com.example.spartube.shorts.recyclerviewutil
 
 import android.content.Context
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.widget.ProgressBar
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultDataSource
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
 import com.example.spartube.databinding.ShortsPageItemBinding
+import com.example.spartube.shorts.util.CustomPlayerUiController
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 
 @UnstableApi
 class ShortsViewHolder(
     private val binding: ShortsPageItemBinding,
     private val context: Context,
-    private val onClickItem: (Int, BindingModel, View, ExoPlayer, Boolean) -> Unit,
+    private val onClickItem: (YouTubePlayer) -> Unit,
     private val onClickShareView: (BindingModel) -> Unit,
     private val onClickLiked: (BindingModel, Boolean) -> Unit,
     private val onClickComment: (BindingModel) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    private var duration: Long? = 0L
+    private var duration: Float? = 0f
+    private lateinit var player: YouTubePlayer
     fun bind(model: BindingModel) = with(binding) {
-        val player = ExoPlayer.Builder(context).build()
-        val dataSourceFactory = DefaultDataSource.Factory(context)
-        val mediaItem =
-            MediaItem.fromUri(Uri.parse("android.resource://" + context.packageName + "/" + R.raw.tmp))
-        val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(mediaItem)
-        shortsPageVideoView.player = player
-        player.addListener(object : Player.Listener {
-            // 플레이 여부가 바뀔 때 마다 실행되는 콜백  isPlaying, true - 실행  false - 멈춤
-            override fun onIsPlayingChanged(isPlaying: Boolean): Unit = with(binding) {
-                super.onIsPlayingChanged(isPlaying)
-                if (isPlaying) {
-                    shortsControlIconImageView.apply {
-                        setImageResource(R.drawable.ic_play)
-                        animate().alpha(0.0f).duration = 500
-                    }
-                } else {
-                    shortsControlIconImageView.apply {
-                        setImageResource(R.drawable.ic_pause)
-                        animate().alpha(1.0f).duration = 500
-                    }
+        val tracker = YouTubePlayerTracker()
+        val customUi = shortsPageVideoView.inflateCustomPlayerUi(R.layout.shorts_custom_view)
+        val youtubePlayerListener = object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                val customPlayerUiController = CustomPlayerUiController(customUi)
+                youTubePlayer.run {
+                    player = this
+                    addListener(tracker)
+                    addListener(customPlayerUiController)
+                    loadVideo("t1Jq8pGZ4gU", 0f)
+//                    loadVideo(model.linkId", 0f)
+                    play()
                 }
             }
-        })
-        shortsTitleView.text = model.title
-        "@${model.channelId}".also { shortsChannelIdTextView.text = it }
-        shortsPageVideoView.run {
-            player.run {
-                setMediaSource(mediaSource)
-                playWhenReady = true
-                prepare()
+
+            override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+                super.onCurrentSecond(youTubePlayer, second)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    duration = tracker.videoDuration
+                    duration?.let {
+                        updateProgressBar(it, progressBar, tracker)
+                    }
+                }, 500)
             }
+        }
+        val iFramePlayerOptions = IFramePlayerOptions.Builder().apply {
+            controls(0)
+            rel(0)
+            ivLoadPolicy(3)
+            ccLoadPolicy(1)
+            fullscreen(0)
+        }.build()
+        shortsPageVideoView.initialize(youtubePlayerListener, false, iFramePlayerOptions)
+        shortsPageVideoView.run {
             setOnClickListener { view ->
-                onClickItem(
-                    adapterPosition, model, view, player, player.isPlaying
-                )
+                onClickItem(player)
             }
         }
         shortsPageIvShare.setOnClickListener {
@@ -75,24 +74,23 @@ class ShortsViewHolder(
         shortsPageIvComment.setOnClickListener {
             onClickComment(model)
         }
-        Handler(Looper.getMainLooper()).postDelayed({
-            duration = player.contentDuration
-            duration?.let {
-                updateProgressBar(it, progressBar, player)
-            }
-        }, 600)
+        shortsTitleView.text = model.title
+        "@${model.channelId}".also { shortsChannelIdTextView.text = it }
     }
 
-    private fun updateProgressBar(duration: Long, progressBar: ProgressBar, player: ExoPlayer) {
+    private fun updateProgressBar(
+        duration: Float,
+        progressBar: ProgressBar,
+        player: YouTubePlayerTracker
+    ) {
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
-                val currentPosition = player.currentPosition
+                val currentPosition = player.currentSecond
                 progressBar.progress = ((currentPosition * 100) / duration.toInt()).toInt()
                 handler.postDelayed(this, 500)
             }
         }
         handler.postDelayed(runnable, 0)
     }
-
 }
