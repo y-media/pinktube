@@ -51,10 +51,6 @@ class ShortsPageFragment : Fragment() {
             }
         )
     }
-
-    //    private var firstChannelNextPageToken: String? = null
-//    private var secondChannelNextPageToken: String? = null
-//    private var thirdChannelNextPageToken: String? = null
     private val shortsNextPageTokenList = arrayListOf<String?>(null, null, null)
     private var player: YouTubePlayer? = null
     private val snapHelper = PagerSnapHelper()
@@ -65,10 +61,10 @@ class ShortsPageFragment : Fragment() {
                 // 스크롤이 최하단일 떄
                 if (!binding.shortsPageRecyclerView.canScrollVertically(1)) {
                     CoroutineScope(Dispatchers.IO).launch {
-//                        getShorts(nextPageToken)
-//                        requireActivity().runOnUiThread {
-//                            shortPageRecyclerAdapter.addItems(shortsList)
-//                        }
+                        getShorts()
+                        requireActivity().runOnUiThread {
+                            shortPageRecyclerAdapter.addItems(shortsList)
+                        }
                     }
                 }
             }
@@ -134,6 +130,7 @@ class ShortsPageFragment : Fragment() {
             "UC8rqHW_RVriJ5TzQLjlWo_Q",
             "UCuuF5I3mo6rlhHLURrIDB9Q"
         )
+        shortsList.clear() // 담겨 있던 것 지워주기 - 똑같은 것을 또 추가하지 않기위해
         channelList.forEachIndexed { index, channelId ->
             val responseShorts =
                 RetrofitModule.getShortsVideos(shortsNextPageTokenList[index], channelId)

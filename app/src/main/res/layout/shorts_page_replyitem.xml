@@ -50,6 +50,8 @@
         android:fontFamily="@font/font_omu"
         android:paddingHorizontal="20dp"
         android:textSize="22sp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/comment_card_view"
         app:layout_constraintTop_toBottomOf="@id/comment_time_text_view" />
 
