@@ -23,7 +23,6 @@ import com.example.spartube.shorts.recyclerviewutil.BindingModel
 import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
 import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
 import com.example.spartube.shorts.util.CustomPlayerUiController
-import com.example.spartube.shorts.util.PreferenceUtils
 import com.example.spartube.shorts.util.SnapPagerScrollListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -91,7 +90,6 @@ class ShortsPageFragment : Fragment() {
             }
         )
     }
-    private lateinit var prefs: PreferenceUtils
     private var youtubePlayerView: YouTubePlayerView? = null
 
     companion object {
@@ -103,7 +101,6 @@ class ShortsPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentShortsPageBinding.inflate(layoutInflater)
-        prefs = PreferenceUtils(requireActivity())
         return binding.root
     }
 
