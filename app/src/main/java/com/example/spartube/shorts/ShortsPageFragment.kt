@@ -2,12 +2,9 @@ package com.example.spartube.shorts
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.common.util.UnstableApi
@@ -22,12 +19,9 @@ import com.example.spartube.db.MyPageEntity
 import com.example.spartube.shorts.recyclerviewutil.BindingModel
 import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
 import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
-import com.example.spartube.shorts.util.CustomPlayerUiController
 import com.example.spartube.shorts.util.SnapPagerScrollListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,15 +46,17 @@ class ShortsPageFragment : Fragment() {
             onClickComment = { model ->
                 showCommentsWithBottomSheet(model)
             },
-            startShortsVideo = { model, youtubePlayerView, progressBar ->
-                startShortsVideo(model, youtubePlayerView, progressBar)
+            startShortsVideo = { model, youtubePlayerView ->
+                startShortsVideo(model, youtubePlayerView)
             }
         )
     }
 
-    private var nextPageToken: String? = null
+    //    private var firstChannelNextPageToken: String? = null
+//    private var secondChannelNextPageToken: String? = null
+//    private var thirdChannelNextPageToken: String? = null
+    private val shortsNextPageTokenList = arrayListOf<String?>(null, null, null)
     private var player: YouTubePlayer? = null
-    private var duration: Float? = 0f
     private val snapHelper = PagerSnapHelper()
     private val endScrollListener by lazy {
         object : RecyclerView.OnScrollListener() {
@@ -69,10 +65,10 @@ class ShortsPageFragment : Fragment() {
                 // 스크롤이 최하단일 떄
                 if (!binding.shortsPageRecyclerView.canScrollVertically(1)) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        getShorts(nextPageToken)
-                        requireActivity().runOnUiThread {
-                            shortPageRecyclerAdapter.addItems(shortsList)
-                        }
+//                        getShorts(nextPageToken)
+//                        requireActivity().runOnUiThread {
+//                            shortPageRecyclerAdapter.addItems(shortsList)
+//                        }
                     }
                 }
             }
@@ -123,7 +119,7 @@ class ShortsPageFragment : Fragment() {
     private fun fetchItems() {
         runCatching {
             CoroutineScope(Dispatchers.IO).launch {
-                getShorts(null)
+                getShorts()
                 initRecyclerView()
             }
         }.onFailure {
@@ -132,26 +128,31 @@ class ShortsPageFragment : Fragment() {
 
     }
 
-    private suspend fun getShorts(pageToken: String?) {
-        val responseShorts = RetrofitModule.getShortsVideos(pageToken)
-        responseShorts.body()?.let { shorts ->
-            nextPageToken = shorts.nextPageToken
-            shorts.items.filter {
-                filteringOverOneMinutes(it.contentDetails.duration).not()
-            }.forEach { item ->
-                shortsList.add(
-                    BindingModel(
-                        linkId = item.id,  //
-                        channelId = item.snippet.channelId, //
-                        title = item.snippet.title, //
-                        description = item.snippet.description, //
-                        thumbnail = item.snippet.thumbnails.default.url, //
-                        replyCount = item.statistics.commentCount, // 삭제
-                        duration = item.contentDetails.duration // 삭제
+    private suspend fun getShorts() {
+        val channelList = listOf(
+            "UCYH0isveXrujjCH4Z2F4p4g",
+            "UC8rqHW_RVriJ5TzQLjlWo_Q",
+            "UCuuF5I3mo6rlhHLURrIDB9Q"
+        )
+        channelList.forEachIndexed { index, channelId ->
+            val responseShorts =
+                RetrofitModule.getShortsVideos(shortsNextPageTokenList[index], channelId)
+            responseShorts.body()?.let { shortsData ->
+                shortsNextPageTokenList[index] = shortsData.nextPageToken
+                shortsData.items.forEach { item ->
+                    shortsList.add(
+                        BindingModel(
+                            linkId = item.id.videoId,
+                            channelId = item.snippet.channelId,
+                            title = item.snippet.title,
+                            description = item.snippet.description,
+                            thumbnail = item.snippet.thumbnails.default.url,
+                        )
                     )
-                )
+                }
             }
         }
+        shortsList.shuffle() // 데이터 섞기
     }
 
     private fun initRecyclerView() {
@@ -232,60 +233,16 @@ class ShortsPageFragment : Fragment() {
     private fun startShortsVideo(
         model: BindingModel,
         youtubePlayerView: YouTubePlayerView,
-        progressBar: ProgressBar
     ) {
-        val tracker = YouTubePlayerTracker()
-        val customUi = youtubePlayerView.inflateCustomPlayerUi(R.layout.shorts_custom_view)
-        val youtubePlayerListener = object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                val customPlayerUiController = CustomPlayerUiController(customUi)
+        youtubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.run {
-                    player = this
-                    addListener(tracker)
-                    addListener(customPlayerUiController)
-                    loadVideo("t1Jq8pGZ4gU", 0f)
-//                    loadVideo(model.linkId", 0f)
+                    loadVideo(model.linkId, 0f)
                     play()
                 }
             }
-
-            override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-                super.onCurrentSecond(youTubePlayer, second)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    duration = tracker.videoDuration
-                    duration?.let {
-                        updateProgressBar(it, progressBar, tracker)
-                    }
-                }, 500)
-            }
-        }
-        val iFramePlayerOptions = IFramePlayerOptions.Builder().apply {
-            controls(0)
-            rel(0)
-            ivLoadPolicy(3)
-            ccLoadPolicy(1)
-            fullscreen(0)
-        }.build()
-        youtubePlayerView.initialize(youtubePlayerListener, false, iFramePlayerOptions)
+        })
     }
-
-    private fun updateProgressBar(
-        duration: Float,
-        progressBar: ProgressBar,
-        player: YouTubePlayerTracker
-    ) {
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                val currentPosition = player.currentSecond
-                progressBar.progress = ((currentPosition * 100) / duration.toInt()).toInt()
-                handler.postDelayed(this, 500)
-            }
-        }
-        handler.postDelayed(runnable, 0)
-    }
-
-    private fun filteringOverOneMinutes(duration: String): Boolean = duration.contains("M")
 
     override fun onDestroyView() {
         youtubePlayerView?.release()

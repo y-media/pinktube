@@ -10,8 +10,6 @@ data class BindingModel(
     val title: String?,
     val description: String?,
     val thumbnail: String?,
-    val replyCount: String?, // 삭제 예정
-    val duration: String?, // 삭제 예정
 )
 
 data class CommentBindingModel(

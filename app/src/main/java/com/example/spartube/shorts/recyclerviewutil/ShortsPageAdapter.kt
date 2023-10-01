@@ -3,7 +3,6 @@ package com.example.spartube.shorts.recyclerviewutil
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageItemBinding
@@ -15,7 +14,7 @@ class ShortsPageAdapter(
     private val onClickShareView: (BindingModel) -> Unit,
     private val onClickLiked: (BindingModel, Boolean) -> Unit,
     private val onClickComment: (BindingModel) -> Unit,
-    private val startShortsVideo: (BindingModel, YouTubePlayerView, ProgressBar) -> Unit
+    private val startShortsVideo: (BindingModel, YouTubePlayerView) -> Unit
 ) : RecyclerView.Adapter<ShortsViewHolder>() {
     private val list = arrayListOf<BindingModel>()
     fun addItems(items: List<BindingModel>) {
