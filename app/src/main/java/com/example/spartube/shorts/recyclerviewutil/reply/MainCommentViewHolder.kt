@@ -3,7 +3,7 @@ package com.example.spartube.shorts.recyclerviewutil.reply
 import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
 import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
 

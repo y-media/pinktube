@@ -1,7 +1,7 @@
 package com.example.spartube.shorts.recyclerviewutil.reply
 
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.example.spartube.databinding.ShortsPageReplyitemBinding
 import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
 

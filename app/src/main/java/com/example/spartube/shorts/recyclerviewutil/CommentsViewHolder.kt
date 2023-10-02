@@ -2,7 +2,7 @@ package com.example.spartube.shorts.recyclerviewutil
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
 
 class CommentsViewHolder(

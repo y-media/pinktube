@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".detail.DetailPageFragment">
 
-    <com.google.android.exoplayer2.ui.PlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/pv_detail_player"
         android:layout_width="match_parent"
         android:layout_height="300dp"

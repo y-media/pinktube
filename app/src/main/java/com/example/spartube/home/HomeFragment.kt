@@ -1,15 +1,19 @@
 package com.example.spartube.home
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.spartube.R
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentHomeBinding
+import com.example.spartube.detail.DetailPageFragment
 import com.example.spartube.home.adapter.CategoryAdapter
 import com.example.spartube.home.adapter.CategoryChannelAdapter
 import com.example.spartube.home.adapter.HomeAdapter
@@ -54,12 +58,36 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    fun click() {
+        homeAdapter.setOnClickListener(object : HomeAdapter.ItemClick {
+            override fun onClick(view: View, Position: Int, model: BindingModel) {
+                val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val detailPageFragment = DetailPageFragment.newInstance().apply {
+                    arguments = Bundle().apply {
+                        putString("model_id", model.id)
+                        putString("model_title", model.title)
+                    }
+                }
+                fragmentTransaction.replace(R.id.container_detail, detailPageFragment).commit()
+                requireActivity().findViewById<FragmentContainerView>(R.id.container_detail).isVisible =
+                    true
+                requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager).isVisible =
+                    false
+                println(model)
+            }
+        }
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         // recycler view 초기화 - adapter
         binding.mainPopularRecyclerView.apply {
             adapter = homeAdapter
+            click()
         }
         binding.mainCategoryRecyclerView.apply {
             adapter = categoryAdapter
