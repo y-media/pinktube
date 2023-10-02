@@ -2,25 +2,23 @@ package com.example.spartube.home.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
 import com.example.spartube.databinding.ItemRecyclerHomeBinding
 import com.example.spartube.home.BindingModel
 import java.text.DecimalFormat
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import kotlin.math.abs
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+
+    //아이템 클릭
+    interface ItemClick {
+        fun onClick(view: View, Position: Int, model: BindingModel)
+    }
+
+    var itemClick: ItemClick? = null
 
     private val list = arrayListOf<BindingModel>()
 
@@ -28,6 +26,10 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         list.clear()
         list.addAll(items)
         notifyDataSetChanged()
+    }
+
+    fun setOnClickListener(listener: ItemClick) {
+        itemClick = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -45,6 +47,13 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        //클릭
+        holder.itemView.setOnClickListener {
+            itemClick?.onClick(it, position, list[position])
+            println(position)
+        }
+
+
 
         holder.bind(list[position])
 
