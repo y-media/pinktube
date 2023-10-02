@@ -1,11 +1,8 @@
 package com.example.spartube.search
 
-class SearchPageEntity(s: String) {
-    val title: CharSequence?
-        get() {
-            TODO()
-        }
-
+class SearchPageEntity(private val s : String) {
+    val title: CharSequence
+        get() = s
     companion object {
 
     }
