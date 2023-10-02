@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
                 fragmentTransaction.setCustomAnimations(
                     R.anim.slide_down_enter,
                     R.anim.slide_down_exit
-                ).replace(R.id.container_detail, detailPageFragment).commit()
+                ).replace(R.id.container_detail, detailPageFragment).commit() //디테일페이지 띄우기 애니메이션 추가
                 requireFragment.isVisible =
                     true
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager).isVisible =
