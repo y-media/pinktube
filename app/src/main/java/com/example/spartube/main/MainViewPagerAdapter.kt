@@ -6,7 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.spartube.R
 import com.example.spartube.home.HomeFragment
 import com.example.spartube.mypage.MyPageFragment
-import com.example.spartube.search.SearchFragment
 import com.example.spartube.shorts.ShortsPageFragment
 
 
