@@ -88,11 +88,6 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-dash:$media3_version"
     implementation "androidx.media3:media3-common:$media3_version"
 
-    implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
-    implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
-    implementation "com.google.android.exoplayer:exoplayer-hls:2.14.1"
-
-    implementation "io.coil-kt:coil:0.10.0"
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:custom-ui:12.1.0'
 }
