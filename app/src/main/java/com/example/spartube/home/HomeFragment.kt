@@ -1,10 +1,13 @@
 package com.example.spartube.home
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.example.spartube.R
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentHomeBinding
 import com.example.spartube.home.adapter.CategoryAdapter
@@ -34,7 +37,8 @@ class HomeFragment : Fragment() {
         CategoryAdapter()
     }
 
-    private val categoryChannelAdapter by lazy{
+    // choose channel recyclerview adapter
+    private val categoryChannelAdapter by lazy {
         CategoryChannelAdapter()
     }
 
@@ -113,6 +117,12 @@ class HomeFragment : Fragment() {
                 }
                 // 스피너에 카테고리 목록을 추가
                 binding.mainSpinnerView.setItems(categoriesList.map { it.first })
+
+                // 스피너 카테고리 목록의 색깔 추가
+                val backgroundColor = context?.let { ContextCompat.getColor(it, R.color.pink3) }
+                if (backgroundColor != null) {
+                    binding.mainSpinnerView.setBackgroundColor(backgroundColor)
+                }
             }
         }
 
@@ -127,8 +137,7 @@ class HomeFragment : Fragment() {
             // 코루틴
             CoroutineScope(Dispatchers.IO).launch {
                 val responseCategoryList = RetrofitModule.getVideos(categoryInfo?.second)
-//                val channelRes = RetrofitModule.getVideosByChannel(categoryInfo?.third)
-                // 카테고리별 *영상*을 가져옴
+//                 카테고리별 *영상*을 가져옴
                 responseCategoryList.body()?.let { categoryList ->
                     categoryList.items.forEach { item ->
                         categoryModels.add(
@@ -141,6 +150,19 @@ class HomeFragment : Fragment() {
                                 runningTime = item.contentDetails.duration
                             )
                         )
+//                        카테고리에 해당하는 각 *채널* 을 가져옴
+                        val channelRes = RetrofitModule.getVideosByChannel(item.snippet.channelId)
+                        channelRes.body()?.let { channel ->
+                            channel.items.forEach { item ->
+                                channelModels.add(
+                                    ChannelBindingModel(
+                                        id = item.id,
+                                        thumbnailUrl = item.snippet.thumbnails.default.url,
+                                        title = item.snippet.title
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -148,32 +170,11 @@ class HomeFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         // 카테고리별 영상 리사이클러뷰에 데이터 바인딩
                         categoryAdapter.addItems(categoryModels)
+                        // 카테고리별 채널 리사이클러뷰에 데이터 바인딩
+                        categoryChannelAdapter.addItems(channelModels)
                     }
                 }
             }
-
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val channelRes = RetrofitModule.getVideosByChannel(categoryInfo?.third)
-//                // 카테고리별 *채널 목록* 가져오기
-//                channelRes.body()?.let { channelList ->
-//                    channelList.items.forEach { item ->
-//                        channelModels.add(
-//                            ChannelBindingModel(
-//                                id = item.id,
-//                                channelId = item.snippet.channelId,
-//                                channelTitle = item.snippet.channelTitle,
-//                                url = item.snippet.thumbnails.default.url
-//                            )
-//                        )
-//                    }
-//                }
-//                if (isAdded) {
-//                    requireActivity().runOnUiThread {
-//                        // 카테고리별 영상 리사이클러뷰에 데이터 바인딩
-//                        categoryChannelAdapter.addItems(channelModels)
-//                    }
-//                }
-//            }
         }
     }
 
@@ -201,11 +202,9 @@ data class BindingModel(
 data class ChannelBindingModel(
     @SerializedName("id")
     val id: String,
-    @SerializedName("channelId")
-    val channelId: String,
-    @SerializedName("channelTitle")
-    val channelTitle: String,
+    @SerializedName("title")
+    val title: String?,
     @SerializedName("url")
-    val url: String,
+    val thumbnailUrl: String,
 )
 
