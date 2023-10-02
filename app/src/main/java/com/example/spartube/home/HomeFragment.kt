@@ -1,7 +1,6 @@
 package com.example.spartube.home
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,8 +69,12 @@ class HomeFragment : Fragment() {
                         putString("model_title", model.title)
                     }
                 }
-                val requireFragment = requireActivity().findViewById<FragmentContainerView>(R.id.container_detail)
-                fragmentTransaction.setCustomAnimations(R.anim.slide_down_enter, R.anim.slide_down_exit).replace(R.id.container_detail, detailPageFragment).commit()
+                val requireFragment =
+                    requireActivity().findViewById<FragmentContainerView>(R.id.container_detail)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_down_enter,
+                    R.anim.slide_down_exit
+                ).replace(R.id.container_detail, detailPageFragment).commit()
                 requireFragment.isVisible =
                     true
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager).isVisible =

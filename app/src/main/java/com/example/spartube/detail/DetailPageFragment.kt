@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.spartube.R
 import com.example.spartube.databinding.FragmentDetailPageBinding
-import com.example.spartube.home.HomeFragment
 import com.google.android.material.tabs.TabLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -48,7 +46,8 @@ class DetailPageFragment : Fragment() {
             val detailPageFragment = DetailPageFragment
             val ViewPager2 =
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
-            fragmentTransaction.setCustomAnimations(R.anim.slide_down_enter,R.anim.slide_down_exit).remove(this).commit()
+            fragmentTransaction.setCustomAnimations(R.anim.slide_down_enter, R.anim.slide_down_exit)
+                .remove(this).commit()
             requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = true
             ViewPager2.isVisible = true
             ViewPager2.setCurrentItem(0, false)
