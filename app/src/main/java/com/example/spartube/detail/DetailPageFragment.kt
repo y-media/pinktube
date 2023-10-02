@@ -20,10 +20,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 class DetailPageFragment : Fragment() {
     private lateinit var binding: FragmentDetailPageBinding
     private var _binding: FragmentDetailPageBinding? = null
-
-    //    private lateinit var adapterHome: HomeAdapter
-//    private lateinit var adapterCategory: CategoryAdapter
-//    private lateinit var adapterChannel: CategoryChannelAdapter
     private var youtube: YouTubePlayerView? = null
 
 
@@ -47,7 +43,7 @@ class DetailPageFragment : Fragment() {
             val ViewPager2 =
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
             fragmentTransaction.setCustomAnimations(R.anim.slide_down_enter, R.anim.slide_down_exit)
-                .remove(this).commit()
+                .remove(this).commit()//디테일페이지 사라지기 애니메이션
             requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = true
             ViewPager2.isVisible = true
             ViewPager2.setCurrentItem(0, false)
