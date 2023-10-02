@@ -2,8 +2,11 @@ package com.example.spartube.home.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.example.spartube.databinding.ItemRecyclerHomeBinding
 import com.example.spartube.home.BindingModel
@@ -33,15 +36,16 @@ class CategoryChannelAdapter: RecyclerView.Adapter<CategoryChannelAdapter.ViewHo
         holder.bind(list[position])
     }
 
-    inner class ViewHolder(private val binding: ItemRecyclerHomeBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(
+        private val binding: ItemRecyclerHomeBinding
+        ): RecyclerView.ViewHolder(binding.root){
         fun bind(item: ChannelBindingModel) = with(binding){
-            itemTitleTextView.text = item.channelId
-            // coil 사용해보기
-            Glide.with(binding.root)
-                .load(Uri.parse(item.url))
-                .fitCenter()
-                .override(500, 400)
-                .into(itemThumbnailImageView)
+            itemTitleTextView.text = item.title
+            itemTimeTextView.visibility = View.INVISIBLE
+            itemThumbnailImageView.load(item.thumbnailUrl){
+                transformations(CircleCropTransformation())
+                size(500, 400)
+            }
         }
     }
 

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pink3">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,10 @@
                 android:id="@+id/main_popular_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/main_popular_text"
                 app:layout_constraintTop_toBottomOf="@id/main_popular_text"
                 tools:listitem="@layout/item_recycler_home" />
@@ -46,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@color/white"
+                android:background="@color/pink3"
                 android:drawableTint="@color/black"
                 android:fontFamily="@font/font_omu"
                 android:foreground="?attr/selectableItemBackground"
@@ -70,8 +72,10 @@
                 android:id="@+id/main_category_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/main_spinner_view"
                 app:layout_constraintTop_toBottomOf="@id/main_spinner_view"
                 tools:listitem="@layout/item_recycler_home" />
@@ -92,8 +96,10 @@
                 android:id="@+id/main_category_channel_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/main_category_channel_text"
                 app:layout_constraintTop_toBottomOf="@id/main_category_channel_text"
                 tools:listitem="@layout/item_recycler_home" />

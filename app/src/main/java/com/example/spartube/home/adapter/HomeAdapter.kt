@@ -1,13 +1,24 @@
 package com.example.spartube.home.adapter
 
+import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
 import com.example.spartube.databinding.ItemRecyclerHomeBinding
 import com.example.spartube.home.BindingModel
 import java.text.DecimalFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import kotlin.math.abs
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -41,11 +52,21 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     inner class HomeViewHolder(private val binding: ItemRecyclerHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val decimalFormat = DecimalFormat("#,###")
+
+        @SuppressLint("SetTextI18n")
         fun bind(model: BindingModel) = with(binding) {
-            itemTimeTextView.text = model.runningTime
-            itemCountTextView.text = model.viewCount + "회"
+            itemTimeTextView.text = model.runningTime?.let { formatRunningTime(it) }
+            itemCountTextView.text = decimalFormat.format(model.viewCount.toInt()) + "회 ·"
             itemTitleTextView.text = model.title
-            itemDateTextView.text = model.publishedAt
+            itemDateTextView.text = extractDate(model.publishedAt)
+
+//            itemThumbnailImageView.load(model.thumbnailUrl){
+//                RoundedCornersTransformation()
+//                size(500, 400)
+//            }
+
             Glide.with(binding.root)
                 .load(Uri.parse(model.thumbnailUrl))
                 .fitCenter()
@@ -54,4 +75,58 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
         }
     }
+
+    fun formatRunningTime(runningTime: String): String {
+        val regex = Regex("""PT(\d+H)?(\d+M)?(\d+S)?""")
+        val matchResult = regex.find(runningTime)
+
+        val hours = matchResult?.groups?.get(1)?.value?.dropLast(1)?.toInt() ?: 0
+        val minutes = matchResult?.groups?.get(2)?.value?.dropLast(1)?.toInt() ?: 0
+        val seconds = matchResult?.groups?.get(3)?.value?.dropLast(1)?.toInt() ?: 0
+
+        return buildString {
+            if (hours > 0) append("${hours}:")
+            if (minutes > 0) {
+                append("${minutes}:")
+            } else {
+                append("00:")
+            }
+            if (seconds in 1..9) {
+                append("0$seconds")
+            } else if (seconds > 9) {
+                append("$seconds")
+            } else {
+                append("00")
+            }
+        }
+    }
+
+    fun extractDate(publishedAt: String): String {
+        return publishedAt.substring(0, 10)
+    }
+
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun getRelativeTimeAgo(publishedAt: String): String {
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+//        val instant = Instant.from(formatter.parse(publishedAt))
+//
+//        // Instant를 LocalDateTime으로 변환 후 LocalDate로 추출
+//        val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+//        val publishedDate = localDateTime.toLocalDate()
+//
+//        val currentDate = LocalDateTime.now().toLocalDate()
+//
+//        val years = abs(currentDate.year - publishedDate.year)
+//        val months = abs(currentDate.monthValue - publishedDate.monthValue)
+//        val weeks = abs(currentDate.toEpochDay() - publishedDate.toEpochDay()) / 7
+//        val days = abs(currentDate.toEpochDay() - publishedDate.toEpochDay())
+//
+//        return when {
+//            years > 0 -> "$years 년 전"
+//            months > 0 -> "$months 년 전"
+//            weeks > 0 -> "$weeks 년 전"
+//            days > 0 -> "$days 년 전"
+//            else -> "방금 전"
+//        }
+//    }
 }
