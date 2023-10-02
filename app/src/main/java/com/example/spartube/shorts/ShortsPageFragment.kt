@@ -127,7 +127,7 @@ class ShortsPageFragment : Fragment() {
     private suspend fun getShorts() {
         val channelList = listOf(
             "UCYH0isveXrujjCH4Z2F4p4g",
-            "UC8rqHW_RVriJ5TzQLjlWo_Q",
+            "UClT4usjSb8nwiQ0iwizh1YQ",
             "UCuuF5I3mo6rlhHLURrIDB9Q"
         )
         shortsList.clear() // 담겨 있던 것 지워주기 - 똑같은 것을 또 추가하지 않기위해
@@ -187,7 +187,7 @@ class ShortsPageFragment : Fragment() {
             val database = AppDatabase.getDatabase(requireActivity())
             when (liked) {
                 true -> database.myPageDao().insertVideo(entity)
-                false -> database.myPageDao().deleteVideo(entity)
+                false -> database.myPageDao().deleteVideo(entity.thumbnailUrl)
             }
 //            database.close() //?
         }

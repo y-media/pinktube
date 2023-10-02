@@ -18,7 +18,7 @@ class CommentsAdapter(
 
     fun addMoreItems(items: List<CommentSetBindingModel>) {
         list.addAll(items)
-        notifyItemInserted(list.size)
+        notifyItemInserted(list.size - 1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
@@ -39,6 +39,4 @@ class CommentsAdapter(
     override fun getItemCount(): Int {
         return list.size
     }
-
-
 }

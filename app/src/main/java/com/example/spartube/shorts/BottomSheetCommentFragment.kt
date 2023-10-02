@@ -127,7 +127,6 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
             }
             isVisible = true
         }
-
     }
 
     private fun mappingModel(model: CommentSetBindingModel): List<CommentBindingModel> {
@@ -160,7 +159,6 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
                             comment.replies,
                             ViewType.OTHER.order,
                         )
-
                     )
                     commentsSetList.first().viewType = ViewType.TOP.order
                 }
@@ -178,7 +176,6 @@ class BottomSheetCommentFragment : BottomSheetDialogFragment() {
     }
 
     fun addComments(commentsSetList: List<CommentSetBindingModel>, nextPageToken: String?) {
-        println(commentsSetList)
         when (nextPageToken) {
             null -> commentsAdapter.addItems(commentsSetList)
             else -> commentsAdapter.addMoreItems(commentsSetList)

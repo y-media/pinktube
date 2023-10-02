@@ -18,6 +18,9 @@ interface MyPageDao {
     @Delete
     fun deleteVideo(model: MyPageEntity)
 
+    @Query("DELETE FROM MyPageEntity WHERE thumbnailUrl = :thumbnailUrl")
+    fun deleteVideo(thumbnailUrl: String?)
+
     @Query("DELETE FROM MyPageEntity")
     fun deleteAllVideos()
 }
