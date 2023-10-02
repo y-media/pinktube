@@ -2,6 +2,8 @@ package com.example.spartube.data.service
 
 import com.example.spartube.BuildConfig
 import com.example.spartube.data.model.categorymodel.ResponseCategory
+import com.example.spartube.data.model.commentmodel.ResponseComment
+import com.example.spartube.data.model.searchmodel.ResponseSearch
 import com.example.spartube.data.model.videomodel.ResponseModel
 import com.example.spartube.data.service.YouTubeSearchService.Companion.BASE_URL
 import okhttp3.OkHttpClient
@@ -51,7 +53,14 @@ object RetrofitModule {
         return youtubeService.getVideoCategories()
     }
 
-    suspend fun getShortsVideos(token: String?): Response<ResponseModel> {
-        return youtubeService.getShorts(pageToken = token)
+    suspend fun getShortsVideos(token: String?, channelId: String?): Response<ResponseSearch> {
+        return youtubeService.getShorts(nextPageToken = token, channelId = channelId)
+    }
+
+    suspend fun getCommentsOfShorts(
+        videoId: String?,
+        nextPageToken: String?
+    ): Response<ResponseComment> {
+        return youtubeService.getCommentsOfShorts(videoId = videoId, nextPageToken = nextPageToken)
     }
 }

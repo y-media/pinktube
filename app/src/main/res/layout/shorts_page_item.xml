@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/shorts_page_exoplayer_view"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/shorts_page_video_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:enableAutomaticInitialization="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:visibility="gone"
         android:src="@drawable/ic_back_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,6 +48,8 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/font_omu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_profile"
         app:layout_constraintStart_toStartOf="@id/shorts_page_iv_profile"
@@ -60,31 +65,35 @@
         android:singleLine="true"
         android:maxLines="1"
         android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="@id/shorts_page_iv_like"
+        android:textSize="16sp"
+        android:fontFamily="@font/font_omu"
+        app:layout_constraintEnd_toEndOf="@id/shorts_page_checkbox_like"
         app:layout_constraintBottom_toBottomOf="@id/shorts_page_iv_profile"
         app:layout_constraintStart_toEndOf="@id/shorts_page_iv_profile"
         app:layout_constraintTop_toTopOf="@id/shorts_page_iv_profile"
         tools:text="123" />
 
-    <ImageView
-        android:id="@+id/shorts_page_iv_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_heart_empty"
+    <CheckBox
+        android:id="@+id/shorts_page_checkbox_like"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="20dp"
+        android:button="@null"
+        android:background="@drawable/selector_is_liked"
         app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_comment"
-        app:layout_constraintEnd_toStartOf="@+id/shorts_page_iv_comment"
-        app:layout_constraintTop_toTopOf="@+id/shorts_page_iv_comment" />
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_comment" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_comment"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_share"
-        app:layout_constraintEnd_toStartOf="@+id/shorts_page_iv_share"
-        app:layout_constraintTop_toTopOf="@+id/shorts_page_iv_share" />
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_share" />
 
     <ImageView
         android:id="@+id/shorts_page_iv_share"
@@ -93,7 +102,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:src="@drawable/ic_share_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@id/shorts_title_view"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar

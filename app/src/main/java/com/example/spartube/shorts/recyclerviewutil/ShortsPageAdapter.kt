@@ -1,14 +1,22 @@
-package com.example.spartube.shorts
+package com.example.spartube.shorts.recyclerviewutil
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageItemBinding
-import com.example.spartube.shorts.listener.ShortsItemClickListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class ShortsPageAdapter : RecyclerView.Adapter<ShortsPageAdapter.ShortsViewHolder>() {
+@UnstableApi
+class ShortsPageAdapter(
+    private val context: Context,
+    private val onClickShareView: (BindingModel) -> Unit,
+    private val onClickLiked: (BindingModel, Boolean) -> Unit,
+    private val onClickComment: (BindingModel) -> Unit,
+    private val startShortsVideo: (BindingModel, YouTubePlayerView) -> Unit
+) : RecyclerView.Adapter<ShortsViewHolder>() {
     private val list = arrayListOf<BindingModel>()
-    private lateinit var shortsItemClickListener: ShortsItemClickListener
     fun addItems(items: List<BindingModel>) {
 //        list.clear()
         list.addAll(items)
@@ -21,7 +29,12 @@ class ShortsPageAdapter : RecyclerView.Adapter<ShortsPageAdapter.ShortsViewHolde
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            context,
+            onClickShareView,
+            onClickLiked,
+            onClickComment,
+            startShortsVideo
         )
     }
 
@@ -34,19 +47,5 @@ class ShortsPageAdapter : RecyclerView.Adapter<ShortsPageAdapter.ShortsViewHolde
 //        val actualPosition = position % list.size
 //        holder.bind(list[actualPosition])
         holder.bind(list[position])
-    }
-
-    inner class ShortsViewHolder(private val binding: ShortsPageItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                shortsItemClickListener.onShortsItemClick(bindingAdapterPosition)
-            }
-        }
-
-        fun bind(model: BindingModel) = with(binding) {
-            shortsTitleView.text = model.title
-            "@${model.channelId}".also { shortsChannelIdTextView.text = it }
-        }
     }
 }
