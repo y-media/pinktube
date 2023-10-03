@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.ShortsCommentBinding
-import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
-import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
-import com.example.spartube.shorts.recyclerviewutil.CommentsAdapter
-import com.example.spartube.shorts.recyclerviewutil.reply.ReplyAdapter
+import com.example.spartube.shorts.adapter.CommentBindingModel
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
+import com.example.spartube.comment.CommentsAdapter
+import com.example.spartube.comment.reply.ReplyAdapter
 import com.example.spartube.util.Converter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog

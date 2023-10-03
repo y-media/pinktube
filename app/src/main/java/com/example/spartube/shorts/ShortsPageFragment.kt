@@ -16,9 +16,9 @@ import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
 import com.example.spartube.db.MyPageEntity
-import com.example.spartube.shorts.recyclerviewutil.BindingModel
-import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
-import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
+import com.example.spartube.shorts.adapter.BindingModel
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
+import com.example.spartube.shorts.adapter.ShortsPageAdapter
 import com.example.spartube.shorts.util.SnapPagerScrollListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback

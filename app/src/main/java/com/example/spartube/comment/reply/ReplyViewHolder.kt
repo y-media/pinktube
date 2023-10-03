@@ -1,9 +1,9 @@
-package com.example.spartube.shorts.recyclerviewutil.reply
+package com.example.spartube.comment.reply
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.spartube.databinding.ShortsPageReplyitemBinding
-import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
+import com.example.spartube.shorts.adapter.CommentBindingModel
 
 class ReplyViewHolder(
     private val binding: ShortsPageReplyitemBinding,

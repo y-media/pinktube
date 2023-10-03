@@ -1,4 +1,4 @@
-package com.example.spartube.shorts.recyclerviewutil
+package com.example.spartube.shorts.adapter
 
 import android.content.Context
 import android.os.Handler

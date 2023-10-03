@@ -1,4 +1,4 @@
-package com.example.spartube.shorts.recyclerviewutil.reply
+package com.example.spartube.comment.reply
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
 import com.example.spartube.databinding.ShortsPageReplyitemBinding
 import com.example.spartube.shorts.ViewType
-import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
+import com.example.spartube.shorts.adapter.CommentBindingModel
 import java.lang.RuntimeException
 
 class ReplyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

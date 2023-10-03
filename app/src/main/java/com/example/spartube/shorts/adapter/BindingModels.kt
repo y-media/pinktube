@@ -1,4 +1,4 @@
-package com.example.spartube.shorts.recyclerviewutil
+package com.example.spartube.shorts.adapter
 
 import com.example.spartube.data.model.commentmodel.Replies
 import com.example.spartube.data.model.commentmodel.SnippetX

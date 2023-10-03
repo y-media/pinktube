@@ -15,7 +15,7 @@ import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentDetailPageBinding
 import com.example.spartube.shorts.BottomSheetCommentFragment
 import com.example.spartube.shorts.ViewType
-import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
 import com.example.spartube.db.AppDatabase
 import com.example.spartube.db.MyPageEntity
 import com.google.android.material.tabs.TabLayout
@@ -126,7 +126,7 @@ class DetailPageFragment : Fragment() {
         binding.tvDetailTitle.setText(title)
         binding.tvDetailContent.setText(content)
         binding.ivDetailComment.setOnClickListener {
-          showCommentsWithBottomSheet(id)
+            showCommentsWithBottomSheet(id)
         }
 
 

@@ -1,11 +1,11 @@
-package com.example.spartube.shorts.recyclerviewutil.reply
+package com.example.spartube.comment.reply
 
 import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
-import com.example.spartube.shorts.recyclerviewutil.CommentBindingModel
+import com.example.spartube.shorts.adapter.CommentBindingModel
 
 class MainCommentViewHolder(
     private val binding: ShortsPageCommentItemBinding
