@@ -48,7 +48,7 @@ interface YouTubeSearchService {
 //        @Query("maxResults") count: Int = 50,
         @Query("order") ordering: String? = "viewCount",
         @Query("type") type: String? = "video",
-        @Query("q") query: String? = "#shorts",
+        @Query("q") query: String? = "shorts",
         @Query("videoDuration") duration: String? = "short"
     ): Response<ResponseSearch>
 
