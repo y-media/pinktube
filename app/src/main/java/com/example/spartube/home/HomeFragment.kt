@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
                     arguments = Bundle().apply {
                         putString("model_id", model.id)
                         putString("model_title", model.title)
+                        putString("model_url", model.thumbnailUrl)
                     }
                 }
                 fragmentTransaction.replace(R.id.container_detail, detailPageFragment).commit()
