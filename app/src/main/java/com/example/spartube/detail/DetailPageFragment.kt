@@ -70,6 +70,9 @@ class DetailPageFragment : Fragment() {
                 youTubePlayer.play()
             }
         })
+        binding.tvDetailId.setText(id)
+        binding.tvDetailTitle.setText(title)
+
         println(id)
         println(title)
     }
@@ -77,9 +80,11 @@ class DetailPageFragment : Fragment() {
     //intent.ACTION_SEND를 이용한 공유 기능
     private fun initShare() {
         binding.ivDetailShare.setOnClickListener {
+            val id = arguments?.getString("model_id")
+
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=GHXQnCGiirE")
+                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=${id}")
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -93,9 +98,9 @@ class DetailPageFragment : Fragment() {
     }
 }
 
-data class DetailBindingModel(
-    val id: String,
-    val title: String?,
-    val content: String?,
-
-    )
+//data class DetailBindingModel(
+//    val id: String,
+//    val title: String?,
+//    val content: String?,
+//
+//    )
