@@ -50,13 +50,15 @@ class DetailPageFragment : Fragment() {
         binding.btnDetailBack.setOnClickListener {
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val ViewPager2 =
+
+            val viewPager2 =
+
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
             fragmentTransaction.setCustomAnimations(R.anim.slide_up_enter, R.anim.slide_down_exit)
                 .remove(this).commit()  //디테일페이지 사라지기 애니메이션
             requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = true
-            ViewPager2.isVisible = true
-            ViewPager2.setCurrentItem(0, false)
+            viewPager2.isVisible = true
+            viewPager2.setCurrentItem(0, false)
         }
         requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = false
 

@@ -7,12 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bumptech.glide.Glide
 import com.example.spartube.R
+import com.example.spartube.home.BindingModel
+import com.example.spartube.home.adapter.HomeAdapter
 import com.example.spartube.search.SearchPageEntity
 
 class SearchPageAdapter(private val data: List<SearchPageEntity>) :
     RecyclerView.Adapter<SearchPageAdapter.ViewHolder>() {
 
-    // 뷰홀더 클래스 정의
+    interface ItemClick {
+        fun onClick(view: View, model: BindingModel)
+    }
+
+    var itemClick: ItemClick? = null
+    fun setOnClickListener(listener: ItemClick) {
+        itemClick = listener
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.thumnail_imageview)
         val titleTextView: TextView = itemView.findViewById(R.id.title_textview)
@@ -31,7 +41,9 @@ class SearchPageAdapter(private val data: List<SearchPageEntity>) :
         holder.titleTextView.text = currentItem.title // 예시로 제목을 텍스트뷰에 설정
         holder.imageView.load(currentItem.thumbnails)
         holder.publishAtTextView.text = currentItem.publishedAt
-
+        holder.itemView.setOnClickListener{
+            itemClick?.onClick(it,currentItem.toBindingModel())
+        }
         // 다른 데이터를 다른 뷰에 설정할 수 있습니다.
     }
 
