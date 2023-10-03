@@ -5,22 +5,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.spartube.R
+import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentDetailPageBinding
+import com.example.spartube.shorts.BottomSheetCommentFragment
+import com.example.spartube.shorts.ViewType
+import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
 import com.google.android.material.tabs.TabLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class DetailPageFragment : Fragment() {
     private lateinit var binding: FragmentDetailPageBinding
     private var _binding: FragmentDetailPageBinding? = null
-    private var youtube: YouTubePlayerView? = null
+    private val commentsSetList = arrayListOf<CommentSetBindingModel>()
 
 
     companion object {
@@ -35,11 +43,11 @@ class DetailPageFragment : Fragment() {
     ): View? {
         binding = FragmentDetailPageBinding.inflate(inflater, container, false)
 
+
         //뒤로가기
         binding.btnDetailBack.setOnClickListener {
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val detailPageFragment = DetailPageFragment
             val ViewPager2 =
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
             fragmentTransaction.setCustomAnimations(R.anim.slide_up_enter, R.anim.slide_down_exit)
@@ -52,6 +60,42 @@ class DetailPageFragment : Fragment() {
 
         initShare()
         return binding.root
+    }
+
+
+    private fun showCommentsWithBottomSheet(id: String?) = with(binding) {
+        val bottomSheet = BottomSheetCommentFragment.newInstance().apply {
+            arguments = Bundle().apply {
+                putString("videoId", id)
+            }
+        }
+        bottomSheet.show(parentFragmentManager, BottomSheetCommentFragment.TAG).runCatching {
+            getComments(id ?: "", bottomSheet)
+        }.onFailure {
+            Toast.makeText(requireActivity(), "로딩 실패", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getComments(linkId: String, bottomSheetFragment: BottomSheetCommentFragment) {
+        CoroutineScope(Dispatchers.IO).launch {
+            commentsSetList.clear()
+            val responseComments = RetrofitModule.getCommentsOfShorts(linkId, null)
+            responseComments.body()?.let { comments ->
+                comments.items.forEach { comment ->
+                    commentsSetList.add(
+                        CommentSetBindingModel(
+                            comment.snippet,
+                            comment.replies,
+                            ViewType.OTHER.order,
+                        )
+                    )
+                    commentsSetList.first().viewType = ViewType.TOP.order
+                }
+                requireActivity().runOnUiThread {
+                    bottomSheetFragment.addComments(commentsSetList, comments.nextPageToken)
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,9 +118,9 @@ class DetailPageFragment : Fragment() {
         binding.tvDetailId.setText(id)
         binding.tvDetailTitle.setText(title)
         binding.tvDetailContent.setText(content)
-
-//        println(id)
-//        println(title)
+        binding.ivDetailComment.setOnClickListener {
+            showCommentsWithBottomSheet(id)
+        }
     }
 
     //intent.ACTION_SEND를 이용한 공유 기능
