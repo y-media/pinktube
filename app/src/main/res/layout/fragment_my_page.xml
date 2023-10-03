@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mypage.MyPageFragment">
+    tools:context=".mypage.MyPageFragment"
+    >
 
     <ImageView
         android:id="@+id/my_page_iv_profile"
