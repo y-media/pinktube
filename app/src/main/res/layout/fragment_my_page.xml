@@ -6,91 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".mypage.MyPageFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/my_page_iv_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="413dp"
-            android:layout_height="232dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/anime"
-            app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-1dp" />
-        <ImageView
-            android:id="@+id/mypage_ImageView_ic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="100dp"
-            android:background="@drawable/ic_shape"
-            android:scaleType="fitXY"
-            android:src="@drawable/lupi"
-            app:layout_constraintBottom_toTopOf="@+id/mypage_recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-
+        android:layout_height="230dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/anime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mypage_recyclerView"
+        android:id="@+id/my_page_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:scrollbars="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_page_iv_profile" />
 
-        <ImageView
-            android:id="@+id/anime"
-            android:layout_width="414dp"
-            android:layout_height="295dp"
-            android:layout_marginBottom="176dp"
-            android:src="@drawable/anime"
-            app:layout_constraintBottom_toBottomOf="@+id/mypage_recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:id="@+id/my_page_iv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="176dp"
+        android:src="@drawable/anime"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_page_iv_profile" />
 
-        <TextView
-            android:id="@+id/nontextView_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="120dp"
-            android:gravity="center"
-            android:text="映像が空いています。"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/anime" />
-
-        <TextView
-        android:id="@+id/nontextView_2"
+    <TextView
+        android:id="@+id/my_page_tv_empty_jp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="120dp"
+        android:gravity="center"
+        android:text="映像が空いています。"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_page_iv_empty" />
+
+    <TextView
+        android:id="@+id/my_page_tv_empty_kr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_omu"
         android:text="영상이 비어있습니다."
         android:textColor="#4D000000"
-            android:fontFamily="@font/font_omu"
-        app:layout_constraintEnd_toEndOf="@+id/nontextView_1"
-        app:layout_constraintStart_toStartOf="@+id/nontextView_1"
-        app:layout_constraintTop_toBottomOf="@+id/nontextView_1" />
-
-        <TextView
-            android:id="@+id/Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/font_omu"
-            android:text="흑염룡"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_ImageView_ic" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_page_tv_empty_jp" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

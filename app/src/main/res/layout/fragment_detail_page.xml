@@ -24,8 +24,10 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:src="@drawable/ic_back_btn"
-        android:tint="#FBA1B7"
+        app:tint="#FBA1B7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,11 +89,14 @@
             android:layout_height="25dp"
             android:layout_marginEnd="10dp"
             android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_comment"
             app:layout_constraintBottom_toBottomOf="@+id/iv_detail_share"
             app:layout_constraintEnd_toStartOf="@+id/iv_detail_share"
             app:layout_constraintTop_toTopOf="@+id/iv_detail_share"
-            app:tint="#FBA1B7" />
+            app:tint="#FBA1B7"
+             />
 
         <ImageView
             android:id="@+id/iv_detail_share"
@@ -100,6 +105,8 @@
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_share_btn"
             android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

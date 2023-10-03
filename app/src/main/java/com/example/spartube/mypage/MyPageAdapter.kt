@@ -3,10 +3,13 @@ package com.example.spartube.mypage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.spartube.databinding.ItemRecyclerHomeBinding
 import com.example.spartube.db.MyPageEntity
 
-class MyPageAdapter(private val data: List<MyPageEntity>) :
+class MyPageAdapter(
+    private val data: MutableList<MyPageEntity>,
+    private val itemClickListener: (MyPageEntity, Boolean) -> Unit) :
     RecyclerView.Adapter<MyPageAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,9 +27,33 @@ class MyPageAdapter(private val data: List<MyPageEntity>) :
 
     inner class ViewHolder(private val binding: ItemRecyclerHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MyPageEntity) {
-            binding.itemTitleTextView.text = item.title
+        fun bind(item: MyPageEntity) = with(binding){
+            itemTitleTextView.text = item.title
+            itemThumbnailImageView.load(item.thumbnailUrl){
+                size(500, 400)
+            }
 
+
+
+// 롱클릭 이벤트 처리
+            root.setOnLongClickListener {
+                itemClickListener(item, true)
+                true // 롱클릭 이벤트 처리를 여기서 완료하므로 true를 반환합니다.
+            }
+
+// 다른 클릭 이벤트 처리
+            root.setOnClickListener {
+                itemClickListener(item, false)
+            }
+        }
+    }
+
+    // 아이템 삭제 함수
+    fun removeItem(item: MyPageEntity) {
+        val position = data.indexOf(item)
+        if (position != -1) {
+            data.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 }

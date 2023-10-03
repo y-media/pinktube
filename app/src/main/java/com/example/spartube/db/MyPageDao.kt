@@ -23,4 +23,5 @@ interface MyPageDao {
 
     @Query("DELETE FROM MyPageEntity")
     fun deleteAllVideos()
+
 }
