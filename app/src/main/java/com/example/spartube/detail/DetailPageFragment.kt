@@ -128,15 +128,14 @@ class DetailPageFragment : Fragment() {
         binding.ivDetailComment.setOnClickListener {
           showCommentsWithBottomSheet(id)
         }
-        
 
-        
+
+
 
         binding.ivDetailHeart.setOnClickListener {
 //데이터 처리, 좋아요 구현
             val roomData = mutableListOf<MyPageEntity>()
             val newItem = MyPageEntity(
-                id = 1000,
                 thumbnailUrl = thumbnail,
                 title = title,
                 description = description

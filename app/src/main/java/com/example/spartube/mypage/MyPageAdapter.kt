@@ -9,12 +9,13 @@ import com.example.spartube.db.MyPageEntity
 
 class MyPageAdapter(
     private val data: MutableList<MyPageEntity>,
-    private val itemClickListener: (MyPageEntity, Boolean) -> Unit) :
-    RecyclerView.Adapter<MyPageAdapter.ViewHolder>() {
+    private val itemClickListener: (MyPageEntity, Boolean) -> Unit
+) : RecyclerView.Adapter<MyPageAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ItemRecyclerHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRecyclerHomeBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -27,25 +28,30 @@ class MyPageAdapter(
 
     inner class ViewHolder(private val binding: ItemRecyclerHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MyPageEntity) = with(binding){
+        fun bind(item: MyPageEntity) = with(binding) {
             itemTitleTextView.text = item.title
-            itemThumbnailImageView.load(item.thumbnailUrl){
+            itemThumbnailImageView.load(item.thumbnailUrl) {
                 size(500, 400)
             }
 
-
-
-// 롱클릭 이벤트 처리
+            // 롱클릭 이벤트 처리
             root.setOnLongClickListener {
                 itemClickListener(item, true)
                 true // 롱클릭 이벤트 처리를 여기서 완료하므로 true를 반환합니다.
             }
 
-// 다른 클릭 이벤트 처리
+            // 다른 클릭 이벤트 처리
             root.setOnClickListener {
                 itemClickListener(item, false)
             }
         }
+    }
+
+    // 아이템 리스트에 아이템들을 추가하는 메서드
+    fun addItems(items: List<MyPageEntity>) {
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
     }
 
     // 아이템 삭제 함수
@@ -57,3 +63,4 @@ class MyPageAdapter(
         }
     }
 }
+

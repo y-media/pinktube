@@ -19,7 +19,7 @@ class MyPageFragment : Fragment() {
     // View Binding을 사용한 프로퍼티 선언
     private lateinit var binding: FragmentMyPageBinding
     private lateinit var myPageAdapter: MyPageAdapter
-    private val myPageData = mutableListOf<MyPageEntity>()
+
     companion object {
         fun newInstance() = MyPageFragment()
     }
@@ -35,20 +35,25 @@ class MyPageFragment : Fragment() {
 
         val recyclerView: RecyclerView = binding.myPageRecyclerview
 
-
-
-        //데이터가있으면 데이터를 반환 없으면 showani를 반환
-        val dummyData = getDummyData()
-        if (dummyData.isEmpty()) {
-            showAni() // 데이터가 비어 있을 때 showani() 호출
+        //데이터가 없을시 보여줄 화면
+        fun showAni(){
+            binding.myPageIvEmpty.visibility = View.VISIBLE
+            binding.myPageTvEmptyJp.visibility = View.VISIBLE
+            binding.myPageTvEmptyKr.visibility = View.VISIBLE
         }
+
+//        //데이터가있으면 데이터를 반환 없으면 showani를 반환
+//        val Data = getDummyData()
+//        if (dummyData.isEmpty()) {
+//            showAni() // 데이터가 비어 있을 때 showani() 호출
+//        }
 
         // 그리드 레이아웃 매니저 설정 (2열로 그리드)
         val spanCount = 2 // 한 줄에 보여질 아이템 수
         val layoutManager = GridLayoutManager(requireContext(), spanCount)
         recyclerView.layoutManager = layoutManager
 
-        myPageAdapter = MyPageAdapter(getDummyData().toMutableList()) { item, longClick ->
+        myPageAdapter = MyPageAdapter(mutableListOf())  { item, longClick ->
             if (longClick) {
                 showDeleteConfirmationDialog(item)
             } else {
@@ -62,40 +67,10 @@ class MyPageFragment : Fragment() {
         return rootView
 
     }
-
-    //더미 데이터 생성
-    private fun getDummyData(): List<MyPageEntity> {
-        val dummyData = mutableListOf<MyPageEntity>()
-//
-//        for (i in 1..20) {
-//            val newItem = MyPageEntity(
-//                id = i,
-//                thumbnailUrl = "https://i.ytimg.com/vi/a-Lw0QlVkow/default.jpg",
-//                title = "oni",
-//                description = "oni Hunter"
-//            )
-//
-//            // 데이터베이스에 데이터 추가
-//            addDataToDatabase(newItem)
-//
-//            dummyData.add(newItem)
-//        }
-        return dummyData
-    }
-
-    private fun addDataToDatabase(item: MyPageEntity) {
-        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insertVideo(item)
-        }
-    }
-
-    //데이터가 없을시 보여줄 화면
-    fun showAni(){
-        binding.myPageIvEmpty.visibility = View.VISIBLE
-        binding.myPageTvEmptyJp.visibility = View.VISIBLE
-        binding.myPageTvEmptyKr.visibility = View.VISIBLE
+    override fun onResume() {
+        super.onResume()
+        // Fragment가 다시 활성화될 때 데이터를 다시 불러오기
+        loadItemsFromDatabase()
     }
 
     //삭제 다이얼로그
@@ -113,6 +88,36 @@ class MyPageFragment : Fragment() {
             }
             .show()
     }
+
+    private fun loadItemsFromDatabase() {
+        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val items = dao.getAllVideos()
+
+            requireActivity().runOnUiThread {
+                // 데이터베이스에서 가져온 아이템을 어댑터에 추가하고 업데이트
+                myPageAdapter.addItems(items)
+                myPageAdapter.notifyDataSetChanged()
+
+            }
+        }
+    }
+
+    private fun addDataToDatabase(item: MyPageEntity) {
+        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insertVideo(item)
+
+            requireActivity().runOnUiThread {
+                // 데이터를 추가한 후에 어댑터를 업데이트하고 화면을 다시 그립니다.
+                loadItemsFromDatabase()
+            }
+        }
+    }
+
+
     private fun deleteItemFromDatabase(item: MyPageEntity) {
         // 데이터베이스 DAO 인터페이스를 사용하여 아이템 삭제
         val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
@@ -120,8 +125,12 @@ class MyPageFragment : Fragment() {
         // 아이템 삭제 작업 실행 (비동기로 실행하는 것을 권장합니다)
         CoroutineScope(Dispatchers.IO).launch {
             dao.deleteVideo(item)
+
+            // 아이템 삭제 작업 완료 후에 데이터베이스에서 데이터를 다시 불러옵니다.
+            loadItemsFromDatabase()
         }
     }
+
 
     // 아이템 삭제 함수
     private fun deleteItem(item: MyPageEntity) {
