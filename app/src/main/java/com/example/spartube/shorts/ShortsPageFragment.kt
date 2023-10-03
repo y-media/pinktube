@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
+import com.example.spartube.comment.BottomSheetCommentFragment
+import com.example.spartube.comment.ViewType
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
