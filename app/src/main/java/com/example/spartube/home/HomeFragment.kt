@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    fun click() {
+    fun clickPopular() {
         homeAdapter.setOnClickListener(object : HomeAdapter.ItemClick {
             override fun onClick(view: View, Position: Int, model: BindingModel) {
                 val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
@@ -67,15 +67,49 @@ class HomeFragment : Fragment() {
                     arguments = Bundle().apply {
                         putString("model_id", model.id)
                         putString("model_title", model.title)
+
                         putString("model_url", model.thumbnailUrl)
+
+                        putString("model_content", model.description)
+
                     }
                 }
-                fragmentTransaction.replace(R.id.container_detail, detailPageFragment).commit()
-                requireActivity().findViewById<FragmentContainerView>(R.id.container_detail).isVisible =
+                val requireFragment =
+                    requireActivity().findViewById<FragmentContainerView>(R.id.container_detail)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_up_enter,
+                    R.anim.slide_down_exit
+                ).replace(R.id.container_detail, detailPageFragment).commit() //디테일페이지 띄우기 애니메이션 추가
+                requireFragment.isVisible =
                     true
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager).isVisible =
                     false
                 println(model)
+            }
+        }
+        )
+    }
+
+    fun clickCategory() {
+        categoryAdapter.categoryClickListener(object : CategoryAdapter.ItemClick {
+            override fun onClick(view: View, Position: Int, model: BindingModel) {
+                val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val detailPageFragment = DetailPageFragment.newInstance().apply {
+                    arguments = Bundle().apply {
+                        putString("model_id", model.id)
+                        putString("model_title", model.title)
+                        putString("model_content", model.description)
+                    }
+                }
+                val requireFragment =
+                    requireActivity().findViewById<FragmentContainerView>(R.id.container_detail)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_up_enter, R.anim.slide_down_exit
+                ).replace(R.id.container_detail, detailPageFragment).commit()
+                requireFragment.isVisible = true
+                requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager).isVisible =
+                    false
             }
         }
         )
@@ -88,10 +122,11 @@ class HomeFragment : Fragment() {
         // recycler view 초기화 - adapter
         binding.mainPopularRecyclerView.apply {
             adapter = homeAdapter
-            click()
+            clickPopular() //클릭이벤트 인기순 영상
         }
         binding.mainCategoryRecyclerView.apply {
             adapter = categoryAdapter
+            clickCategory() //클릭이벤트 종류별 영상
         }
         binding.mainCategoryChannelRecyclerView.apply {
             adapter = categoryChannelAdapter
@@ -112,7 +147,8 @@ class HomeFragment : Fragment() {
                             thumbnailUrl = item.snippet.thumbnails.default.url,
                             title = item.snippet.title,
                             viewCount = item.statistics.viewCount,
-                            runningTime = item.contentDetails.duration
+                            runningTime = item.contentDetails.duration,
+                            description = item.snippet.description
                         )
                     )
                 }
@@ -176,7 +212,8 @@ class HomeFragment : Fragment() {
                                 thumbnailUrl = item.snippet.thumbnails.default.url,
                                 title = item.snippet.title,
                                 viewCount = item.statistics.viewCount,
-                                runningTime = item.contentDetails.duration
+                                runningTime = item.contentDetails.duration,
+                                description = item.snippet.description
                             )
                         )
 //                        카테고리에 해당하는 각 *채널* 을 가져옴
@@ -226,6 +263,8 @@ data class BindingModel(
     val viewCount: String,
     @SerializedName("publishedAt")
     val publishedAt: String,
+    @SerializedName("description")
+    val description: String,
 )
 
 data class ChannelBindingModel(

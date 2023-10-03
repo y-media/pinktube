@@ -62,6 +62,15 @@ interface YouTubeSearchService {
         @Query("videoId") videoId: String?
     ): Response<ResponseComment>
 
+    @GET("v3/search")
+    suspend fun getSearchResult(
+        @Query("key") token: String? = BuildConfig.YOUTUBE_API_KEY,
+        @Query("part") part: String = "id,snippet",
+        @Query("q") query: String? ,
+        @Query("type") type: String? = "video",
+        @Query("regionCode") code: String = "KR"
+    ): Response<ResponseSearch>
+
     companion object {
         const val BASE_URL = "https://www.googleapis.com/youtube/"
     }

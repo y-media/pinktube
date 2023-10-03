@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.spartube.R
@@ -27,10 +26,6 @@ import kotlinx.coroutines.launch
 class DetailPageFragment : Fragment() {
     private lateinit var binding: FragmentDetailPageBinding
     private var _binding: FragmentDetailPageBinding? = null
-
-    //    private lateinit var adapterHome: HomeAdapter
-//    private lateinit var adapterCategory: CategoryAdapter
-//    private lateinit var adapterChannel: CategoryChannelAdapter
     private var youtube: YouTubePlayerView? = null
 
 
@@ -53,8 +48,8 @@ class DetailPageFragment : Fragment() {
             val detailPageFragment = DetailPageFragment
             val ViewPager2 =
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
-            requireActivity().findViewById<FragmentContainerView>(R.id.container_detail).isVisible =
-                false
+            fragmentTransaction.setCustomAnimations(R.anim.slide_up_enter, R.anim.slide_down_exit)
+                .remove(this).commit()  //디테일페이지 사라지기 애니메이션
             requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = true
             ViewPager2.isVisible = true
             ViewPager2.setCurrentItem(0, false)
@@ -69,6 +64,7 @@ class DetailPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val id = arguments?.getString("model_id")
         val title = arguments?.getString("model_title")
+        val content = arguments?.getString("model_content")
 
         val thumbnail = arguments?.getString("model_url")
         val description = ""
@@ -84,8 +80,8 @@ class DetailPageFragment : Fragment() {
                 youTubePlayer.play()
             }
         })
-        println(id)
-        println(title)
+
+        
 
         binding.ivDetailHeart.setOnClickListener {
 //데이터 처리, 좋아요 구현
@@ -108,14 +104,22 @@ class DetailPageFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             dao.insertVideo(item)
         }
+
+        binding.tvDetailId.setText(id)
+        binding.tvDetailTitle.setText(title)
+        binding.tvDetailContent.setText(content)
+
+
     }
 
     //intent.ACTION_SEND를 이용한 공유 기능
     private fun initShare() {
         binding.ivDetailShare.setOnClickListener {
+            val id = arguments?.getString("model_id")
+
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=GHXQnCGiirE")
+                putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=${id}")
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -128,10 +132,3 @@ class DetailPageFragment : Fragment() {
         _binding = null
     }
 }
-
-data class DetailBindingModel(
-    val id: String,
-    val title: String?,
-    val content: String?,
-
-    )

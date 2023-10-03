@@ -63,4 +63,10 @@ object RetrofitModule {
     ): Response<ResponseComment> {
         return youtubeService.getCommentsOfShorts(videoId = videoId, nextPageToken = nextPageToken)
     }
+
+    suspend fun getSearchResult(
+        query: String?
+    ): Response<ResponseSearch>{
+        return youtubeService.getSearchResult(query = query)
+    }
 }

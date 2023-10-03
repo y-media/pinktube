@@ -5,9 +5,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentSearchBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import com.example.spartube.search.SearchPageEntity as SearchPageEntity
 
 class SearchFragment : Fragment() {
@@ -31,26 +36,41 @@ class SearchFragment : Fragment() {
         searchButton = binding.ibSearchSearchbutton
         recyclerView = binding.rbSearchRecyclerview
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
 
         // 검색 버튼 클릭 이벤트 처리
         searchButton.setOnClickListener {
             val searchText = editText.text.toString()
-            val newSearchResults = getSearchResults(searchText)
-            val adapter = SearchPageAdapter(newSearchResults)
-            recyclerView.adapter = adapter
+            getSearchResults(searchText)
         }
 
         return rootView
     }
 
-    private fun getSearchResults(query: String): List<SearchPageEntity> {
-        val dummyData = mutableListOf<SearchPageEntity>()
-        for (i in 1..10) {
-            val entity = SearchPageEntity("Item $i") // 예시로 "Item $i"와 같은 제목을 설정
-            dummyData.add(entity)
+    private fun getSearchResults(query: String){
+
+        val arraylist = arrayListOf<SearchPageEntity>()
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = RetrofitModule.getSearchResult(query)
+            response.body()?.let { searchResults ->
+                searchResults.items.forEach{item ->
+                    arraylist.add(
+                        SearchPageEntity(
+                            title = item.snippet.title,
+                            videoId = item.id.videoId,
+                            description = item.snippet.description,
+                            publishedAt = item.snippet.publishedAt,
+                            thumbnails = item.snippet.thumbnails.default.url
+                        )
+                    )
+                }
+            }
+            requireActivity().runOnUiThread {
+                val adapter = SearchPageAdapter(arraylist)
+                recyclerView.adapter = adapter
+                adapter.notifyDataSetChanged()
+            }
         }
-        return dummyData
     }
 
 }
