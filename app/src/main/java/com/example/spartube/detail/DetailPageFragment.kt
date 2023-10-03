@@ -5,16 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.spartube.R
 import com.example.spartube.databinding.FragmentDetailPageBinding
+import com.example.spartube.db.AppDatabase
+import com.example.spartube.db.MyPageEntity
 import com.google.android.material.tabs.TabLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class DetailPageFragment : Fragment() {
@@ -60,6 +66,9 @@ class DetailPageFragment : Fragment() {
         val title = arguments?.getString("model_title")
         val content = arguments?.getString("model_content")
 
+        val thumbnail = arguments?.getString("model_url")
+        val description = ""
+
         val youTubePlayerView: YouTubePlayerView =
             binding.pvDetailPlayer
         lifecycle.addObserver(youTubePlayerView)
@@ -71,12 +80,36 @@ class DetailPageFragment : Fragment() {
                 youTubePlayer.play()
             }
         })
+
+        
+
+        binding.ivDetailHeart.setOnClickListener {
+//데이터 처리, 좋아요 구현
+            val roomData = mutableListOf<MyPageEntity>()
+            val newItem = MyPageEntity(
+                id = 1000,
+                thumbnailUrl = thumbnail,
+                title = title,
+                description = description
+            )
+            addDataToDatabase(newItem)
+            roomData.add(newItem)
+            Toast.makeText(requireContext(), "myPage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun addDataToDatabase(item: MyPageEntity) {
+        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insertVideo(item)
+        }
+
         binding.tvDetailId.setText(id)
         binding.tvDetailTitle.setText(title)
         binding.tvDetailContent.setText(content)
 
-//        println(id)
-//        println(title)
+
     }
 
     //intent.ACTION_SEND를 이용한 공유 기능
