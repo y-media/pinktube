@@ -35,18 +35,7 @@ class MyPageFragment : Fragment() {
 
         val recyclerView: RecyclerView = binding.myPageRecyclerview
 
-        //데이터가 없을시 보여줄 화면
-        fun showAni(){
-            binding.myPageIvEmpty.visibility = View.VISIBLE
-            binding.myPageTvEmptyJp.visibility = View.VISIBLE
-            binding.myPageTvEmptyKr.visibility = View.VISIBLE
-        }
-
-//        //데이터가있으면 데이터를 반환 없으면 showani를 반환
-//        val Data = getDummyData()
-//        if (dummyData.isEmpty()) {
-//            showAni() // 데이터가 비어 있을 때 showani() 호출
-//        }
+        loadItemsFromDatabase()
 
         // 그리드 레이아웃 매니저 설정 (2열로 그리드)
         val spanCount = 2 // 한 줄에 보여질 아이템 수
@@ -67,6 +56,14 @@ class MyPageFragment : Fragment() {
         return rootView
 
     }
+
+    //데이터가 없을시 보여줄 화면
+    fun showAni(isEmpty: Boolean){
+        binding.myPageIvEmpty.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
+        binding.myPageTvEmptyJp.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
+        binding.myPageTvEmptyKr.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
+    }
+
     override fun onResume() {
         super.onResume()
         // Fragment가 다시 활성화될 때 데이터를 다시 불러오기
@@ -96,26 +93,31 @@ class MyPageFragment : Fragment() {
             val items = dao.getAllVideos()
 
             requireActivity().runOnUiThread {
-                // 데이터베이스에서 가져온 아이템을 어댑터에 추가하고 업데이트
-                myPageAdapter.addItems(items)
-                myPageAdapter.notifyDataSetChanged()
 
+                if (items.isEmpty()){
+                    showAni(true)
+                }else{
+                    // 데이터베이스에서 가져온 아이템을 어댑터에 추가하고 업데이트
+                    myPageAdapter.addItems(items)
+                    myPageAdapter.notifyDataSetChanged()
+                    showAni(false)
+                }
             }
         }
     }
 
-    private fun addDataToDatabase(item: MyPageEntity) {
-        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insertVideo(item)
-
-            requireActivity().runOnUiThread {
-                // 데이터를 추가한 후에 어댑터를 업데이트하고 화면을 다시 그립니다.
-                loadItemsFromDatabase()
-            }
-        }
-    }
+//    private fun addDataToDatabase(item: MyPageEntity) {
+//        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            dao.insertVideo(item)
+//
+//            requireActivity().runOnUiThread {
+//                // 데이터를 추가한 후에 어댑터를 업데이트하고 화면을 다시 그립니다.
+//                loadItemsFromDatabase()
+//            }
+//        }
+//    }
 
 
     private fun deleteItemFromDatabase(item: MyPageEntity) {
