@@ -19,6 +19,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     var itemClick: ItemClick? = null
+    fun setOnClickListener(listener: ItemClick) {
+        itemClick = listener
+    }
 
     private val list = arrayListOf<BindingModel>()
 
@@ -26,10 +29,6 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         list.clear()
         list.addAll(items)
         notifyDataSetChanged()
-    }
-
-    fun setOnClickListener(listener: ItemClick) {
-        itemClick = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -52,11 +51,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
             itemClick?.onClick(it, position, list[position])
             println(position)
         }
-
-
-
         holder.bind(list[position])
-
     }
 
     inner class HomeViewHolder(private val binding: ItemRecyclerHomeBinding) :

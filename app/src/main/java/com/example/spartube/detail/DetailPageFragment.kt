@@ -42,8 +42,8 @@ class DetailPageFragment : Fragment() {
             val detailPageFragment = DetailPageFragment
             val ViewPager2 =
                 requireActivity().findViewById<ViewPager2>(R.id.activity_main_viewpager)
-            fragmentTransaction.setCustomAnimations(R.anim.slide_down_enter, R.anim.slide_down_exit)
-                .remove(this).commit()//디테일페이지 사라지기 애니메이션
+            fragmentTransaction.setCustomAnimations(R.anim.slide_up_enter, R.anim.slide_down_exit)
+                .remove(this).commit()  //디테일페이지 사라지기 애니메이션
             requireActivity().findViewById<TabLayout>(R.id.activity_main_tab).isVisible = true
             ViewPager2.isVisible = true
             ViewPager2.setCurrentItem(0, false)
@@ -58,6 +58,7 @@ class DetailPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val id = arguments?.getString("model_id")
         val title = arguments?.getString("model_title")
+        val content = arguments?.getString("model_content")
 
         val youTubePlayerView: YouTubePlayerView =
             binding.pvDetailPlayer
@@ -72,9 +73,10 @@ class DetailPageFragment : Fragment() {
         })
         binding.tvDetailId.setText(id)
         binding.tvDetailTitle.setText(title)
+        binding.tvDetailContent.setText(content)
 
-        println(id)
-        println(title)
+//        println(id)
+//        println(title)
     }
 
     //intent.ACTION_SEND를 이용한 공유 기능
@@ -97,10 +99,3 @@ class DetailPageFragment : Fragment() {
         _binding = null
     }
 }
-
-//data class DetailBindingModel(
-//    val id: String,
-//    val title: String?,
-//    val content: String?,
-//
-//    )
