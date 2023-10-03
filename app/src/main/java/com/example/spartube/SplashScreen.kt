@@ -24,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_down_enter, R.anim.slide_down_exit)
+            overridePendingTransition(R.anim.slide_up_enter, R.anim.slide_down_exit)
             finish()
         }, 3100)
     }
