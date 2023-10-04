@@ -53,8 +53,8 @@
 
         <ImageView
             android:id="@+id/iv_detail_heart"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_heart_filled"
             app:layout_constraintBottom_toBottomOf="@+id/iv_detail_comment"
@@ -66,7 +66,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/ic_pink_tube1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -115,11 +115,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_view">
+        app:layout_constraintTop_toBottomOf="@+id/detail_view"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -143,11 +144,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="500dp"
+                android:layout_marginBottom="0dp"
                 android:fontFamily="@font/font_omu"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
-                android:text="Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare.Lorem ipsum dolor sit amet consectetur. Commodo turpis et laoreet quam suspendisse. Risus tempor et enim ac magna velit morbi ornare." />
+                android:text="asdasd" />
         </LinearLayout>
     </ScrollView>
 
