@@ -156,7 +156,7 @@ class ShortsPageFragment : Fragment() {
                 }
             }
         }
-//        shortsList.shuffle() // 데이터 섞기
+        shortsList.shuffle() // 데이터 섞기
     }
 
     private fun initRecyclerView() {
