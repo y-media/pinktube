@@ -100,6 +100,7 @@ class HomeFragment : Fragment() {
                         putString("model_id", model.id)
                         putString("model_title", model.title)
                         putString("model_content", model.description)
+                        putString("model_url", model.thumbnailUrl)
                     }
                 }
                 val requireFragment =
