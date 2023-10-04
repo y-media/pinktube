@@ -1,9 +1,10 @@
-package com.example.spartube.shorts.recyclerviewutil
+package com.example.spartube.comment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
 
 class CommentsAdapter(
     private val onClickReply: (CommentSetBindingModel) -> Unit

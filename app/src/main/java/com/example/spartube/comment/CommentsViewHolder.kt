@@ -1,9 +1,10 @@
-package com.example.spartube.shorts.recyclerviewutil
+package com.example.spartube.comment
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.spartube.databinding.ShortsPageCommentItemBinding
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
 
 class CommentsViewHolder(
     private val binding: ShortsPageCommentItemBinding,

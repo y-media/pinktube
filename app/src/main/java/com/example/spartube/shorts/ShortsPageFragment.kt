@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spartube.R
+import com.example.spartube.comment.BottomSheetCommentFragment
+import com.example.spartube.comment.ViewType
 import com.example.spartube.data.service.RetrofitModule
 import com.example.spartube.databinding.FragmentShortsPageBinding
 import com.example.spartube.db.AppDatabase
 import com.example.spartube.db.MyPageEntity
-import com.example.spartube.shorts.recyclerviewutil.BindingModel
-import com.example.spartube.shorts.recyclerviewutil.CommentSetBindingModel
-import com.example.spartube.shorts.recyclerviewutil.ShortsPageAdapter
+import com.example.spartube.shorts.adapter.BindingModel
+import com.example.spartube.shorts.adapter.CommentSetBindingModel
+import com.example.spartube.shorts.adapter.ShortsPageAdapter
 import com.example.spartube.shorts.util.SnapPagerScrollListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
@@ -85,7 +87,7 @@ class ShortsPageFragment : Fragment() {
     private var youtubePlayerView: YouTubePlayerView? = null
 
     companion object {
-        const val BASE_VIDEO_URL = "https://www.youtube.com/watch?v="
+        const val BASE_VIDEO_URL = "https://www.youtube.com/embed/"
         fun newInstance() = ShortsPageFragment()
     }
 
