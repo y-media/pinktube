@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/iv_search_logobutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_pink_tube1"
         app:layout_constraintBottom_toTopOf="@+id/et_search_edittext"
         app:layout_constraintEnd_toStartOf="@+id/et_search_edittext" />
