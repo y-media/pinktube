@@ -62,25 +62,26 @@ class MyPageFragment : Fragment() {
         binding.myPageIvEmpty.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
         binding.myPageTvEmptyJp.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
         binding.myPageTvEmptyKr.visibility = if(isEmpty) View.VISIBLE else View.INVISIBLE
+        binding.myPageRecyclerview.visibility = if (isEmpty) View.INVISIBLE else View.VISIBLE
     }
 
     override fun onResume() {
         super.onResume()
         // Fragment가 다시 활성화될 때 데이터를 다시 불러오기
         loadItemsFromDatabase()
+
     }
 
-    //삭제 다이얼로그
     private fun showDeleteConfirmationDialog(item: MyPageEntity) {
         AlertDialog.Builder(requireContext())
-            .setTitle("삭제 확인")
-            .setMessage("이 항목을 삭제할꺼야?")
-            .setPositiveButton("응") { dialog, _ ->
-                // 확인 버튼을 눌렀을 때 아이템 삭제 작업 수행
+            .setTitle("DELETE")
+            .setMessage("항목을 삭제하시겠습니까?")
+            .setPositiveButton("확인") { dialog, _ ->
+// 확인 버튼을 눌렀을 때 아이템 삭제 작업 수행
                 deleteItem(item)
                 dialog.dismiss()
             }
-            .setNegativeButton("아니") { dialog, _ ->
+            .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -119,12 +120,11 @@ class MyPageFragment : Fragment() {
 //        }
 //    }
 
-
     private fun deleteItemFromDatabase(item: MyPageEntity) {
         // 데이터베이스 DAO 인터페이스를 사용하여 아이템 삭제
         val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
 
-        // 아이템 삭제 작업 실행 (비동기로 실행하는 것을 권장합니다)
+        // 아이템 삭제 작업 실행
         CoroutineScope(Dispatchers.IO).launch {
             dao.deleteVideo(item)
 
@@ -146,11 +146,11 @@ class MyPageFragment : Fragment() {
         myPageAdapter.notifyDataSetChanged()
     }
 
-    private fun deleteAllItems() {
-        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.deleteAllVideos()
-        }
-    }
+//    private fun deleteAllItems() {
+//        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+//        CoroutineScope(Dispatchers.IO).launch {
+//            dao.deleteAllVideos()
+//        }
+//    }
 
 }
