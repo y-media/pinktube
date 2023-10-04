@@ -132,6 +132,10 @@ class ShortsPageFragment : Fragment() {
             "UClT4usjSb8nwiQ0iwizh1YQ",
             "UCuuF5I3mo6rlhHLURrIDB9Q"
         )
+        val likedVideos = AppDatabase.getDatabase(requireActivity())
+            .myPageDao()
+            .getAllVideos()
+            .map { it.thumbnailUrl }
         shortsList.clear() // 담겨 있던 것 지워주기 - 똑같은 것을 또 추가하지 않기위해
         channelList.forEachIndexed { index, channelId ->
             val responseShorts =
@@ -146,12 +150,13 @@ class ShortsPageFragment : Fragment() {
                             title = item.snippet.title,
                             description = item.snippet.description,
                             thumbnail = item.snippet.thumbnails.default.url,
+                            isLiked = likedVideos.contains(item.snippet.thumbnails.default.url)
                         )
                     )
                 }
             }
         }
-        shortsList.shuffle() // 데이터 섞기
+//        shortsList.shuffle() // 데이터 섞기
     }
 
     private fun initRecyclerView() {

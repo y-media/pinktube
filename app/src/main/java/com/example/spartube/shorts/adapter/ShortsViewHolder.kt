@@ -70,6 +70,7 @@ class ShortsViewHolder(
             onClickComment(model)
         }
         shortsTitleView.text = model.title
+        shortsPageCheckboxLike.isChecked = model.isLiked
         "@${model.channelId}".also { shortsChannelIdTextView.text = it }
         startShortsVideo(model, shortsPageVideoView)
     }

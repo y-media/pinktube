@@ -10,6 +10,7 @@ data class BindingModel(
     val title: String?,
     val description: String?,
     val thumbnail: String?,
+    var isLiked: Boolean
 )
 
 data class CommentBindingModel(
