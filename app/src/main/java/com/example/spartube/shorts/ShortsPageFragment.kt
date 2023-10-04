@@ -87,7 +87,7 @@ class ShortsPageFragment : Fragment() {
     private var youtubePlayerView: YouTubePlayerView? = null
 
     companion object {
-        const val BASE_VIDEO_URL = "https://www.youtube.com/watch?v="
+        const val BASE_VIDEO_URL = "https://www.youtube.com/embed/"
         fun newInstance() = ShortsPageFragment()
     }
 
