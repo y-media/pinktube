@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink2">
+    android:background="@color/pink3">
 
     <EditText
         android:id="@+id/et_search_edittext"
         android:layout_width="230dp"
         android:layout_height="50dp"
         android:hint="검색창"
+        android:paddingLeft="10dp"
         android:background="@drawable/edittext_search_roundconer"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
@@ -23,10 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_pink_tube1"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/et_search_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/et_search_edittext" />
 
     <ImageButton
         android:id="@+id/ib_search_searchbutton"
