@@ -2,6 +2,7 @@ package com.example.spartube.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +26,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.internal.notify
 
 
 class DetailPageFragment : Fragment() {
     private lateinit var binding: FragmentDetailPageBinding
     private var _binding: FragmentDetailPageBinding? = null
     private val commentsSetList = arrayListOf<CommentSetBindingModel>()
-
+    private var isLike = false
 
     companion object {
 
@@ -130,19 +132,42 @@ class DetailPageFragment : Fragment() {
         }
 
 
-
-
         binding.ivDetailHeart.setOnClickListener {
 //데이터 처리, 좋아요 구현
             val roomData = mutableListOf<MyPageEntity>()
-            val newItem = MyPageEntity(
+            val item = MyPageEntity(
                 thumbnailUrl = thumbnail,
                 title = title,
                 description = description
             )
-            addDataToDatabase(newItem)
-            roomData.add(newItem)
-            Toast.makeText(requireContext(), "myPage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+
+            if(isLike){
+                binding.ivDetailHeart.setImageResource(R.drawable.ic_heart_empty)
+                removeDataToDatabase(item)
+                Toast.makeText(requireContext(), "좋아요를 취소했습니다.", Toast.LENGTH_SHORT).show()
+            }else{
+                binding.ivDetailHeart.setImageResource(R.drawable.ic_heart_filled)
+                addDataToDatabase(item)
+                roomData.add(item)
+                Toast.makeText(requireContext(), "myPage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        initView()
+    }
+    private fun initView() {
+        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+        val thumbnail = arguments?.getString("model_url")
+        CoroutineScope(Dispatchers.IO).launch{
+            val checkData = dao.getAllVideos()
+            checkData.forEach {
+                if(thumbnail == it.thumbnailUrl){
+                    binding.ivDetailHeart.setImageResource(R.drawable.ic_heart_filled)
+                    isLike = true
+                }else{
+                    binding.ivDetailHeart.setImageResource(R.drawable.ic_heart_empty)
+                    isLike = false
+                }
+            }
         }
     }
 
@@ -154,6 +179,14 @@ class DetailPageFragment : Fragment() {
         }
 
 
+    }
+
+    private fun removeDataToDatabase(item: MyPageEntity) {
+        val dao = AppDatabase.getDatabase(requireContext()).myPageDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.deleteVideo(item.thumbnailUrl)
+        }
     }
 
     //intent.ACTION_SEND를 이용한 공유 기능

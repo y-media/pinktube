@@ -56,7 +56,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_heart_filled"
+            android:src="@drawable/selector_is_liked"
             app:layout_constraintBottom_toBottomOf="@+id/iv_detail_comment"
             app:layout_constraintEnd_toStartOf="@+id/iv_detail_comment"
             app:layout_constraintTop_toTopOf="@+id/iv_detail_comment" />
