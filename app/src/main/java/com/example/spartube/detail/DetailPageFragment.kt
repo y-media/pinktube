@@ -151,6 +151,7 @@ class DetailPageFragment : Fragment() {
                 roomData.add(item)
                 Toast.makeText(requireContext(), "myPage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
+            isLike = !isLike
         }
         initView()
     }
