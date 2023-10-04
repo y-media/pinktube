@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
                             videoId = item.id.videoId,
                             description = item.snippet.description,
                             publishedAt = item.snippet.publishedAt,
-                            thumbnails = item.snippet.thumbnails.default.url
+                            thumbnails = item.snippet.thumbnails.high.url
                         )
                     )
                 }
