@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/shorts_page_video_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:enableAutomaticInitialization="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shorts_page_btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_back_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shorts_page_iv_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/shorts_title_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:layout_marginEnd="10dp"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/font_omu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_profile"
+        app:layout_constraintStart_toStartOf="@id/shorts_page_iv_profile"
+        tools:text="123asdasd" />
+
+    <TextView
+        android:id="@+id/shorts_channel_id_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:fontFamily="@font/font_omu"
+        app:layout_constraintEnd_toEndOf="@id/shorts_page_checkbox_like"
+        app:layout_constraintBottom_toBottomOf="@id/shorts_page_iv_profile"
+        app:layout_constraintStart_toEndOf="@id/shorts_page_iv_profile"
+        app:layout_constraintTop_toTopOf="@id/shorts_page_iv_profile"
+        tools:text="123" />
+
+    <CheckBox
+        android:id="@+id/shorts_page_checkbox_like"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="20dp"
+        android:button="@null"
+        android:background="@drawable/selector_is_liked"
+        app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_comment"
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_comment" />
+
+    <ImageView
+        android:id="@+id/shorts_page_iv_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_comment"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="@+id/shorts_page_iv_share"
+        app:layout_constraintBottom_toTopOf="@id/shorts_page_iv_share" />
+
+    <ImageView
+        android:id="@+id/shorts_page_iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_share_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@id/shorts_title_view"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:progressDrawable="@drawable/progressbar_style"
+        android:max="100"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
