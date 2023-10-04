@@ -25,8 +25,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/activity_main_tab"
-        />
+        app:layout_constraintBottom_toTopOf="@id/activity_main_tab" />
+
+    <ProgressBar
+        android:id="@+id/network_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/activity_main_viewpager"
+        app:layout_constraintBottom_toBottomOf="@id/activity_main_viewpager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/network_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/internet_connection"
+        android:visibility="gone"
+        android:fontFamily="@font/font_omu"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/network_progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_main_tab"
