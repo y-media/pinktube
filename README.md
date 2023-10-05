@@ -24,7 +24,7 @@
 ![image](https://github.com/y-media/pinktube/assets/139103652/15b7e06a-e7cc-4903-a50e-e2fae395f1c0)
 ![image](https://github.com/y-media/pinktube/assets/139103652/606aee4c-95bb-4a7e-a5a1-89ff8ce551f5)
 
-회의를 통하여 구체적인 설계에 들어가기 전에 대략적인 틀을 구성하였습니다.
+회의를 통하여 구체적인 설계에 들어가기 전에 `대략적인 틀`을 구성하였습니다.
 </details>
 
 <details>
@@ -32,7 +32,7 @@
 
 ![splash](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a)
 
-앱이 실행될 때 시작화면으로 로티애니메이션을 추가했습니다.
+앱이 실행될 때 시작화면으로 `lottie animation`을 추가했습니다.
 
 </details>
     
@@ -42,10 +42,15 @@
 ![image](https://github.com/y-media/pinktube/assets/139103652/41e919c7-2d90-4870-b58a-28b4d01ae571)
 
 사용자에게 YouTube의 현재 인기 및 새로운 콘텐츠를 중점적으로 보여주는 핵심 화면입니다.
+
 TabLayout + ViePager2 사용하여 구현하였습니다.
+
 아래 목록을 스크롤이 가능한 RecyclerView 형태로 나열하여 출력합니다.
+
 `Most Popular Videos 목록` 보여주고 수평으로 스크롤이 되도록 구현했습니다.
+
 `Category Videos 목록` 보여주고 수평으로 스크롤이 되도록 구현했습니다.
+
 `Category Channels 목록` 보여주고 수평으로 스크롤이 되도록 구현했습니다.
 
 </details>
@@ -56,10 +61,15 @@ TabLayout + ViePager2 사용하여 구현하였습니다.
 ![image](https://github.com/y-media/pinktube/assets/139103652/4b62045c-f5cf-4314-b027-79fff0ae5b44)
 
 Home Page에서 각 아이템 선택시 선택된 비디오의 `상세 정보 제공`합니다.
+
 `좋아요` 버튼 클릭 시 My Page에 비디오 정보를 `저장`합니다. 
+
 Detail page 시작과 종료시 특별한 Effect로 `화면 전환 애니메이션`을 적용했습니다.
+
 댓글 버튼 누를 시 `영상의 댓글`을 불러와 보여주기를 구현했습니다.
+
 homefragment에서 불러온 영상 `재생`하기가 가능합니다.
+
 링크 `공유하기` 기능을 추가했습니다.
 
 </details>
@@ -86,9 +96,13 @@ homefragment에서 불러온 영상 `재생`하기가 가능합니다.
 ![image](https://github.com/y-media/pinktube/assets/139103652/aafb6c54-310b-4fdb-8437-7a0120d59155)
 
 사용자의 개인 정보 및 사용자가 `좋아요`를 누른 비디오 목록을 보여주는 기능 제공합니다.
+
 사용자의 프로필 사진, 이름 등의 `개인 정보를 상단에 표시`합니다.
+
 `좋아요`를 누른 비디오 목록은 `RecyclerView`를 사용해 아래쪽에 목록 형태로 출력합니다.
+
 저장과 삭제에는 `Room database`를 적용하였습니다.
+
 `롱 클릭시 삭제 기능` 추가했습니다.
 
 </details>
@@ -98,10 +112,15 @@ homefragment에서 불러온 영상 `재생`하기가 가능합니다.
 ![image](https://github.com/y-media/pinktube/assets/139103652/da21c06b-64b7-4ccd-8d56-113860bbee8f)
 
 동영상의 길이 `60초 이내인 비디오 목록`을 `여러 채널`에서 가져와 보여주는 기능 제공합니다.
+
 쇼츠, 댓글의 끝에서 스크롤 시 다음 페이지를 가져와 보여주는 기능을 제공 합니다.(`infinite scroll`)
+
 `좋아요` 버튼 클릭 시 `My Video` 에 저장합니다.
+
 `댓글` 버튼 누를 시 영상의 댓글을 불러와 보여줍니다.
+
 `공유` 버튼 누를 시 , 영상 제목과 링크를 공유합니다.
+
 `progress bar`를 추가하여 현재 영상의 `진행률을 실시간`으로 보여줍니다.
 
 
