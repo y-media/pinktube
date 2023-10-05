@@ -30,7 +30,7 @@
 <details>
 <summary>Splash Page</summary>
 
-<img src ="https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a" width="180" height="350"/>
+<img src ="https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a" width="200" height="350"/>
 
 앱이 실행될 때 시작화면으로 `lottie animation`을 추가했습니다.
 
@@ -39,7 +39,7 @@
 <details>
 <summary>Home Page</summary>
 
-<img src ="https://github.com/y-media/pinktube/assets/88123219/72023010-f5d9-4d29-b3ce-ab5e1c9399ed" width="180" height="350"/>
+<img src ="https://github.com/y-media/pinktube/assets/88123219/72023010-f5d9-4d29-b3ce-ab5e1c9399ed" width="200" height="350"/>
 
 사용자에게 YouTube의 현재 인기 및 새로운 콘텐츠를 중점적으로 보여주는 핵심 화면입니다.
 
@@ -58,7 +58,7 @@ TabLayout + ViePager2 사용하여 구현하였습니다.
 <details>
 <summary>Detail Page</summary>
 
-<img src ="https://github.com/y-media/pinktube/assets/88123219/dbfba8e5-6d46-44e6-b40f-9e95ee2f57d8" width="180" height="350"/>
+<img src ="https://github.com/y-media/pinktube/assets/88123219/dbfba8e5-6d46-44e6-b40f-9e95ee2f57d8" width="200" height="350"/>
 
 Home Page에서 각 아이템 선택시 선택된 비디오의 `상세 정보 제공`합니다.
 
@@ -93,7 +93,7 @@ homefragment에서 불러온 영상 `재생`하기가 가능합니다.
     
 <summary>My Page</summary>
 
-<img src ="https://github.com/y-media/pinktube/assets/88123219/8d2af801-46d2-4978-ad4f-cf80757c4b0a" width="180" height="350"/>
+<img src ="https://github.com/y-media/pinktube/assets/88123219/8d2af801-46d2-4978-ad4f-cf80757c4b0a" width="200" height="350"/>
 
 사용자의 개인 정보 및 사용자가 `좋아요`를 누른 비디오 목록을 보여주는 기능 제공합니다.
 
@@ -109,7 +109,7 @@ homefragment에서 불러온 영상 `재생`하기가 가능합니다.
 <details>
 <summary>Shorts Page</summary>
 
-<img src ="https://github.com/y-media/pinktube/assets/88123219/9d4d4f87-fac5-4b84-a37e-73fe0b6ded35" width="180" height="350"/>
+<img src ="https://github.com/y-media/pinktube/assets/88123219/9d4d4f87-fac5-4b84-a37e-73fe0b6ded35" width="200" height="350"/>
 
 동영상의 길이 `60초 이내인 비디오 목록`을 `여러 채널`에서 가져와 보여주는 기능 제공합니다.
 
