@@ -39,7 +39,7 @@
 <details>
 <summary>Home Page</summary>
 
-![home](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/69fbf20d-a972-4874-820f-56df9fd440a1)
+![image](https://github.com/y-media/pinktube/assets/139103652/41e919c7-2d90-4870-b58a-28b4d01ae571)
 
 사용자에게 YouTube의 현재 인기 및 새로운 콘텐츠를 중점적으로 보여주는 핵심 화면
 
