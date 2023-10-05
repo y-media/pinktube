@@ -1,10 +1,11 @@
-Pink Tube
-===
 <img src="https://github.com/y-media/pinktube/assets/139103652/452744fe-4a23-4e96-b269-08f22e3961e9" width="300" height="300">
+ 
+# 📺 PINKTUBE 🎞
 
-- 팀명 :  **2(E)는없조**
-- 팀 소개 : **전원 I로 이루어진 조..**
-- 팀 노션 : **https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a**
+## 🎈 Team Introduce 🎈
+- ### [Team Notion]<https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a>
+
+- ### [Team GitHub]<https://github.com/y-media/pinktube>
 
 | 이름   | 역할 | MBTI        | BLOG                                               | GitHub                                                   | 
 | ------ | ---- | ----------  | -------------------------------------------------- | -------------------------------------------------------- |
@@ -14,16 +15,21 @@ Pink Tube
 | 신승철 | 팀원 | ISFP         | https://velog.io/@tlstmdcjfekt                     |  https://github.com/developShin                          |
 | 김민종 | 팀원 | ISTJ         | https://aaapple.tistory.com/                       |     https://github.com/Kim-Min-Jong                      |
 
-### 와이어프레임
+## 🎩 Project Introduce 🎩
+### 기본 화면 구성
+
+<details>
+<summary>와이어 프레임</summary>
+  
 ![image](https://github.com/y-media/pinktube/assets/139103652/15b7e06a-e7cc-4903-a50e-e2fae395f1c0)
 ![image](https://github.com/y-media/pinktube/assets/139103652/606aee4c-95bb-4a7e-a5a1-89ff8ce551f5)
 
-### 기본 화면 구성
-- 기본 화면 구성
-    TabLayout + ViewPager2를 조합해서 사용
+회의를 통하여 구체적인 설계에 들어가기 전에 대략적인 틀을 구성했습니다.
+</details>
 
+    
 <details>
-<summary>1. Home Page</summary>
+<summary>Home Page</summary>
 
 ![image](https://github.com/y-media/pinktube/assets/139103652/41e919c7-2d90-4870-b58a-28b4d01ae571)
 
@@ -41,7 +47,7 @@ Pink Tube
 
 
 <details>
-<summary>2. Search Page</summary>
+<summary>Search Page</summary>
 
 ![image](https://github.com/y-media/pinktube/assets/139103652/25022286-2032-4d10-bdee-03d7d9fac536)
 
@@ -56,7 +62,7 @@ Pink Tube
 </details>
 
 <details>
-<summary>3. Detail Page</summary>
+<summary>Detail Page</summary>
 
 ![image](https://github.com/y-media/pinktube/assets/139103652/4b62045c-f5cf-4314-b027-79fff0ae5b44)
 
@@ -77,7 +83,7 @@ homefragment에서 불러온 영상 재생하기
 </details>
 <details>
     
-<summary>4. My Page</summary>
+<summary>My Page</summary>
 
 ![image](https://github.com/y-media/pinktube/assets/139103652/aafb6c54-310b-4fdb-8437-7a0120d59155)
 
@@ -91,7 +97,7 @@ homefragment에서 불러온 영상 재생하기
 
 </details>
 <details>
-<summary>5. Shorts Page</summary>
+<summary>Shorts Page</summary>
 
 ![image](https://github.com/y-media/pinktube/assets/139103652/da21c06b-64b7-4ccd-8d56-113860bbee8f)
 
@@ -109,5 +115,9 @@ homefragment에서 불러온 영상 재생하기
 </details>
 
 
+## 📗 Platforms & Languages 📒
+<img src="https://img.shields.io/badge/android-3DDC84?style=flat-square&logo=android&logoColor=white"/>  <img src="https://img.shields.io/badge/kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white"/>
 
+## 📕 Tools 📘
+<img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"/>  <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/>  <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>  <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white"/>
 
