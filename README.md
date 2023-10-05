@@ -1,6 +1,7 @@
 <img src="https://github.com/y-media/pinktube/assets/139103652/452744fe-4a23-4e96-b269-08f22e3961e9" width="300" height="300">
  
 # 📺 PINKTUBE 🎞
+![pinkTube_home](https://github.com/y-media/pinktube/assets/88123219/ce1d6aa8-d09e-4e15-89f1-29dcf6355c61)
 
 ## 🎈 Team Introduce 🎈
 - ### [Team Notion]<https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a>
