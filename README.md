@@ -24,14 +24,22 @@
 ![image](https://github.com/y-media/pinktube/assets/139103652/15b7e06a-e7cc-4903-a50e-e2fae395f1c0)
 ![image](https://github.com/y-media/pinktube/assets/139103652/606aee4c-95bb-4a7e-a5a1-89ff8ce551f5)
 
-회의를 통하여 구체적인 설계에 들어가기 전에 대략적인 틀을 구성했습니다.
+회의를 통하여 구체적인 설계에 들어가기 전에 대략적인 틀을 구성
 </details>
 
+<details>
+<summary>Splash Page</summary>
+
+![splash](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a)
+
+앱이 실행될 때 시작화면으로 로티애니메이션을 추가
+
+</details>
     
 <details>
 <summary>Home Page</summary>
 
-![pinkTube_home](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/a8f15769-431f-4dd6-bb30-b3d224520195)
+![home](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/69fbf20d-a972-4874-820f-56df9fd440a1)
 
 사용자에게 YouTube의 현재 인기 및 새로운 콘텐츠를 중점적으로 보여주는 핵심 화면
 
