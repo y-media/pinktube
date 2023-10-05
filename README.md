@@ -1,7 +1,6 @@
 <img src="https://github.com/y-media/pinktube/assets/139103652/452744fe-4a23-4e96-b269-08f22e3961e9" width="300" height="300">
  
 # 📺 PINKTUBE 🎞
-![pinkTube_home](https://github.com/y-media/pinktube/assets/88123219/ce1d6aa8-d09e-4e15-89f1-29dcf6355c61)
 
 ## 🎈 Team Introduce 🎈
 - ### [Team Notion]<https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a>
@@ -40,7 +39,7 @@
 <details>
 <summary>Home Page</summary>
 
-![image](https://github.com/y-media/pinktube/assets/139103652/41e919c7-2d90-4870-b58a-28b4d01ae571)
+<img src ="https://github.com/y-media/pinktube/assets/88123219/ce1d6aa8-d09e-4e15-89f1-29dcf6355c61" width="180" height="350"/>
 
 사용자에게 YouTube의 현재 인기 및 새로운 콘텐츠를 중점적으로 보여주는 핵심 화면입니다.
 
