@@ -30,7 +30,7 @@
 <details>
 <summary>Splash Page</summary>
 
-![splash](https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a)
+<img src ="https://github.com/cording10jianzo/B.F-Baby_Friend-/assets/88123219/0957072f-c151-44af-8944-5409d3782a6a" width="180" height="350"/>
 
 앱이 실행될 때 시작화면으로 `lottie animation`을 추가했습니다.
 
