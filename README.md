@@ -3,11 +3,11 @@
 # 📺 PINKTUBE 🎞
 
 ## 🎈 Team Introduce 🎈
-- ### [Team Notion]<https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a>
+- ### [Team Notion](https://www.notion.so/2-E-6717f5205b2c452fae07f13b9b7a2d1a)
 
-- ### [Team GitHub]<https://github.com/y-media/pinktube>
+- ### [Team GitHub](https://github.com/y-media/pinktube)
 
-- ### [Canva]<https://www.canva.com/design/DAFwTIBILho/2GmYVZDvnnnt3G2f4-i6MA/view?utm_content=DAFwTIBILho&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink>
+- ### [Canva](https://www.canva.com/design/DAFwTIBILho/2GmYVZDvnnnt3G2f4-i6MA/view?utm_content=DAFwTIBILho&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 | 이름   | 역할 | MBTI        | BLOG                                               | GitHub                                                   | 
 | ------ | ---- | ----------  | -------------------------------------------------- | -------------------------------------------------------- |
