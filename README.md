@@ -7,6 +7,8 @@
 
 - ### [Team GitHub]<https://github.com/y-media/pinktube>
 
+- ### [Canva]<https://www.canva.com/design/DAFwTIBILho/2GmYVZDvnnnt3G2f4-i6MA/view?utm_content=DAFwTIBILho&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink>
+
 | 이름   | 역할 | MBTI        | BLOG                                               | GitHub                                                   | 
 | ------ | ---- | ----------  | -------------------------------------------------- | -------------------------------------------------------- |
 | 박용석 | 팀장 | ISFJ         | https://velog.io/@ys4897                           |      https://github.com/yspark2                          |
@@ -140,5 +142,5 @@ homefragment에서 불러온 영상 `재생`하기가 가능합니다.
 <img src="https://img.shields.io/badge/android-3DDC84?style=flat-square&logo=android&logoColor=white"/>  <img src="https://img.shields.io/badge/kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white"/>
 
 ## 📕 Tools 📘
-<img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"/>  <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/>  <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>  <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white"/>
+<img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"/>  <img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white"/>  <img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>  <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white"/> 
 
