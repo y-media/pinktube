@@ -15,6 +15,15 @@
 | 신승철 | 팀원 | ISFP         | https://velog.io/@tlstmdcjfekt                     |  https://github.com/developShin                          |
 | 김민종 | 팀원 | ISTJ         | https://aaapple.tistory.com/                       |     https://github.com/Kim-Min-Jong                      |
 
+
+<details>
+<summary>역할 분담</summary>
+  
+![image](https://github.com/y-media/pinktube/assets/139086025/8efd8509-984a-4963-a388-3752110b4166)
+
+
+</details>
+
 ## 🎩 Project Introduce 🎩
 ### 기본 화면 구성
 
