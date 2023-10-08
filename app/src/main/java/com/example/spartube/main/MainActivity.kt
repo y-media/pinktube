@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
 
         activityMainViewpager.adapter = viewPagerAdapter
+        activityMainViewpager.isUserInputEnabled = false
         TabLayoutMediator(activityMainTab, activityMainViewpager) { tab, position ->
             tab.setText(viewPagerAdapter.getTitle(position))
             tab.setIcon(viewPagerAdapter.getIcon(position))
